@@ -7,7 +7,7 @@ import eu.luftiger.mdbot.database.DatabaseQueryHandler;
 import eu.luftiger.mdbot.database.DatabaseSetup;
 import eu.luftiger.mdbot.listeners.BotJoinListener;
 import eu.luftiger.mdbot.listeners.BotLeaveListener;
-import eu.luftiger.mdbot.listeners.ButtonListener;
+import eu.luftiger.mdbot.listeners.buttons.ButtonListener;
 import eu.luftiger.mdbot.schedulers.UpdateScheduler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -15,6 +15,8 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
 import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
 public class Bot {
@@ -69,9 +71,24 @@ public class Bot {
         logger.info("Starting update scheduler...");
         UpdateScheduler updateScheduler = new UpdateScheduler(this);
         updateScheduler.start();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        boolean running = true;
+        while (running) {
+            String line = reader.readLine();
+            if (line.equals("exit") || line.equals("quit") || line.equals("stop")) {
+                logger.info("Shutting down...");
+                updateScheduler.stop();
+                jda.shutdown();
+                running = false;
+            }
+        }
     }
 
 
+    public String getVersion() {
+        return "1.0.0";
+    }
     public Logger getLogger() {
         return logger;
     }

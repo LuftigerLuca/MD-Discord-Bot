@@ -7,19 +7,22 @@ public class BotGuild {
 
     private final String guildId;
     private String guildName;
+    private String locale;
     private List<BotMember> members;
     private List<BotRole> roles;
 
-    public BotGuild(String guildId, String guildName, List<BotMember> members, List<BotRole> roles) {
+    public BotGuild(String guildId, String guildName, String locale, List<BotMember> members, List<BotRole> roles) {
         this.guildId = guildId;
         this.guildName = guildName;
+        this.locale = locale;
         this.members = members;
         this.roles = roles;
     }
 
-    public BotGuild(String guildId, String guildName){
+    public BotGuild(String guildId, String guildName, String locale) {
         this.guildId = guildId;
         this.guildName = guildName;
+        this.locale = locale;
         members =  new ArrayList<>();
         roles = new ArrayList<>();
     }
@@ -34,6 +37,14 @@ public class BotGuild {
 
     public void setGuildName(String guildName) {
         this.guildName = guildName;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     public List<BotMember> getMembers() {
@@ -78,6 +89,10 @@ public class BotGuild {
 
     public void addRole(BotRole role){
         roles.add(role);
+    }
+
+    public BotRole getRole(String roleId){
+        return roles.stream().filter(role -> role.getRoleId().equals(roleId)).findFirst().orElse(null);
     }
 
     public void removeRole(BotRole role){

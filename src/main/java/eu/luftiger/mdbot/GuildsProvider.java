@@ -6,6 +6,7 @@ import eu.luftiger.mdbot.model.BotMember;
 import eu.luftiger.mdbot.model.BotSignOff;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +36,16 @@ public class GuildsProvider {
         }
     }
 
-    public void addGuild(BotGuild guild) throws Exception {
-        databaseQueryHandler.addGuild(guild.getGuildId(), guild.getGuildName());
+    public void addGuild(BotGuild guild) {
+        databaseQueryHandler.addGuild(guild.getGuildId(), guild.getGuildName(), guild.getLocale());
         guilds.add(guild);
-    }
-
-    public void addGuild(String guildId, String guildName){
-        guilds.add(new BotGuild(guildId, guildName));
-        databaseQueryHandler.addGuild(guildId, guildName);
     }
 
     public BotGuild getGuild(String guildId){
         return guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().orElse(null);
     }
 
-    public void removeGuild(BotGuild guild) throws Exception {
+    public void removeGuild(BotGuild guild) {
         databaseQueryHandler.removeGuild(guild.getGuildId());
         guilds.remove(guild);
     }
@@ -59,14 +55,20 @@ public class GuildsProvider {
         guilds.removeIf(guild -> guild.getGuildId().equals(guildId));
     }
 
-    public void updateName(BotGuild guild, String newName) throws Exception {
-        databaseQueryHandler.addGuild(guild.getGuildId(), newName);
-        guilds.stream().filter(g -> g.getGuildId().equals(guild.getGuildId())).findFirst().ifPresent(g -> g.setGuildName(newName));
+    public void updateGuild(BotGuild guild, String newName, String locale){
+        databaseQueryHandler.addGuild(guild.getGuildId(), newName, locale);
+        guilds.stream().filter(g -> g.getGuildId().equals(guild.getGuildId())).findFirst().ifPresent(g -> {
+            g.setGuildName(newName);
+            g.setLocale(locale);
+        });
     }
 
-    public void updateName(String guildId, String newName) throws Exception {
-        databaseQueryHandler.addGuild(guildId, newName);
-        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.setGuildName(newName));
+    public void updateGuild(String guildId, String newName, String locale){
+        databaseQueryHandler.addGuild(guildId, newName, locale);
+        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> {
+            g.setGuildName(newName);
+            g.setLocale(locale);
+        });
     }
 
     public void addMember(BotMember member, String guildId){
@@ -109,6 +111,26 @@ public class GuildsProvider {
         BotSignOff signOff = getSignOff(signOffId);
         signOff.setAccepted(accepted);
         databaseQueryHandler.updateSignOff(signOff);
+    }
+
+    public boolean hasPermission(String guildId, String memberId, String permission){
+        if(bot.getJda().getGuildById(guildId).getOwner().getId().equals(memberId)){
+            return true;
+        }
+
+        if(getGuild(guildId).getMember(memberId) != null && getGuild(guildId).getMember(memberId).hasPermission(permission)){
+            return true;
+        }
+        Guild guild = bot.getJda().getGuildById(guildId);
+        if(guild != null){
+            Member member = guild.getMemberById(memberId);
+            for (Role role : member.getRoles()) {
+                if(getGuild(guildId).getRole(role.getId()) != null && getGuild(guildId).getRole(role.getId()).hasPermission(permission)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public List<BotGuild> getGuilds() {

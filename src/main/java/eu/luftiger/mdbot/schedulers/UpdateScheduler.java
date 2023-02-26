@@ -33,7 +33,7 @@ public class UpdateScheduler {
             for (Guild guild : guilds) {
                 if(botGuilds.stream().noneMatch(botGuild -> botGuild.getGuildId().equals(guild.getId()))){
                     try {
-                        guildsProvider.addGuild(guild.getId(), guild.getName());
+                        guildsProvider.addGuild(new BotGuild(guild.getId(), guild.getName(), "en"));
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -42,7 +42,7 @@ public class UpdateScheduler {
 
                 if(botGuilds.stream().anyMatch(botGuild -> botGuild.getGuildId().equals(guild.getId()) && !botGuild.getGuildName().equals(guild.getName()))){
                     try {
-                        guildsProvider.updateName(guild.getId(), guild.getName());
+                        guildsProvider.updateGuild(guild.getId(), guild.getName(), guildsProvider.getGuild(guild.getId()).getLocale());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

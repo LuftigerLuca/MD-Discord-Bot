@@ -30,7 +30,7 @@ public class DatabaseQueryHandler {
             statement.execute();
             var resultSet = statement.getResultSet();
             while (resultSet.next()){
-                guilds.add(new BotGuild(resultSet.getString("id"), resultSet.getString("name")));
+                guilds.add(new BotGuild(resultSet.getString("id"), resultSet.getString("name"), resultSet.getString("locale")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,17 +38,17 @@ public class DatabaseQueryHandler {
         return guilds;
     }
 
-    public void addGuild(String guildId, String guildName){
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO guilds (id, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?")){
+    public void addGuild(String guildId, String guildName, String locale){
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO guilds (id, name, locale) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, locale = ?")){
             statement.setString(1, guildId);
             statement.setString(2, guildName);
-            statement.setString(3, guildName);
+            statement.setString(3, locale);
+            statement.setString(4, guildName);
+            statement.setString(5, locale);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println("Added guild " + guildName + " to database");
     }
 
     public void removeGuild(String guildId){

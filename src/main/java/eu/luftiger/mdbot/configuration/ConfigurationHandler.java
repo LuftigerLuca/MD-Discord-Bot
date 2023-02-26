@@ -17,6 +17,8 @@ public class ConfigurationHandler {
 
     private final ObjectMapper objectMapper;
     private Configuration configuration;
+    private LanguageConfiguration englishLanguageConfiguration;
+    private LanguageConfiguration germanLanguageConfiguration;
 
     public ConfigurationHandler(Bot bot) {
         this.objectMapper = new ObjectMapper(new YAMLFactory());
@@ -33,6 +35,20 @@ public class ConfigurationHandler {
             Files.copy(inputStream, Paths.get("config.yaml"));
         }
         configuration = objectMapper.readValue(configurationFile, Configuration.class);
+
+        File germanLanguageFile = new File("de.yaml");
+        if(!germanLanguageFile.exists()){
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("de.yaml");
+            Files.copy(inputStream, Paths.get("de.yaml"));
+        }
+        germanLanguageConfiguration = objectMapper.readValue(germanLanguageFile, LanguageConfiguration.class);
+
+        File englishLanguageFile = new File("en.yaml");
+        if(!englishLanguageFile.exists()){
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("en.yaml");
+            Files.copy(inputStream, Paths.get("en.yaml"));
+        }
+        englishLanguageConfiguration = objectMapper.readValue(englishLanguageFile, LanguageConfiguration.class);
     }
 
 
@@ -42,5 +58,13 @@ public class ConfigurationHandler {
      */
     public Configuration getConfiguration() {
         return configuration;
+    }
+
+    public LanguageConfiguration getGermanLanguageConfiguration() {
+        return germanLanguageConfiguration;
+    }
+
+    public LanguageConfiguration getEnglishLanguageConfiguration() {
+        return englishLanguageConfiguration;
     }
 }

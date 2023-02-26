@@ -1,0 +1,56 @@
+#-----------------General--------------------
+permissiondenied: "You don't have the permission to do this!"
+unknownuser: "This user does not exist!"
+yes: "Yes"
+no: "No"
+back: "Back"
+
+#-----------------Signoff--------------------
+invaliddateformat: "The date must be in the format dd.MM.yyyy!"
+signofftitle: "Sign off"
+notacceptedyet: "(not accepted yet)"
+acceptbutton: "Accept"
+declinebutton: "Decline"
+signoffcreated: "Sign off created!"
+
+acceptedby: "Akzeptiert von"
+declinedby: "Abgelehnt von"
+
+uhaveaccepted: "You have accepted the sign off."
+uhavedeclined: "You have declined the sign off."
+uhavedeleted: "You have deleted the sign off."
+
+reasontitle: "Reason"
+fromtitle: "From"
+totitle: "To"
+
+#-----------------Signoff-Info--------------------
+signoffinfotitle: "Sign off Info"
+signedoff: "Signed off"
+signoffs: "Sign offs"
+dayssignedoff: "Days signed off"
+
+#-----------------Configure--------------------
+configuretitle: "Configure"
+languagetitle: "Language"
+whatshouldbechanged: "What should be changed?"
+changelanguage: "Choose a language"
+
+#-----------------Information--------------------
+informationtitle: "Information"
+version: "Version"
+author: "Author"
+documentation: "Documentation"
+
+#------------------Training---------------------
+datetitle: "Date"
+descriptiontitle: "Description"
+participants: "Participants"
+locationtitle: "Location"
+requirementstitle: "Requirements"
+jointraining: "Join"
+leavetraining: "Leave"
+trainingcreated: "Training created!"
+trainingdeleted: "Training deleted!"
+alreadyjoined: "You have already joined this training!"
+notjoined: "You have not joined this training!"

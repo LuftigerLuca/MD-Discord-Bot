@@ -1,6 +1,7 @@
 create table if not exists guilds (
     id varchar(255) not null,
     name varchar(255) not null,
+    locale varchar(32) not null,
 
     primary key (id)
 );

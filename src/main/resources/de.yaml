@@ -1,0 +1,57 @@
+#-----------------General--------------------
+permissiondenied: "Du hast nicht die Berechtigung, dies zu tun!"
+unknownuser: "Dieser Benutzer existiert nicht!"
+yes: "Ja"
+no: "Nein"
+back: "Zurück"
+
+#-----------------Signoff--------------------
+invaliddateformat: "Das Datum muss im Format dd.MM.yyyy sein."
+signofftitle: "Abmeldung"
+notacceptedyet: "(noch nicht akzeptiert)"
+acceptbutton: "Akzeptieren"
+declinebutton: "Ablehnen"
+signoffcreated: "Abmeldung erstellt"
+
+acceptedby: "Akzeptiert von"
+declinedby: "Abgelehnt von"
+
+uhaveaccepted: "Du hast die Abmeldung akzeptiert."
+uhavedeclined: "Du hast die Abmeldung abgelehnt."
+uhavedeleted: "Du hast die Abmeldung gelöscht."
+
+reasontitle: "Grund"
+fromtitle: "Von"
+totitle: "Bis"
+
+#-----------------Signoff-Info--------------------
+signoffinfotitle: "Abmeldung Info"
+signedoff: "Abgemeldet"
+signoffs: "Abmeldungen"
+dayssignedoff: "Tage abgemeldet"
+
+#-----------------Configure--------------------
+configuretitle: "Konfigurieren"
+languagetitle: "Sprache"
+whatshouldbechanged: "Was soll geändert werden?"
+changelanguage: "Wähle eine Sprache aus"
+
+#-----------------Information--------------------
+informationtitle: "Information"
+version: "Version"
+author: "Autor"
+documentation: "Dokumentation"
+
+#------------------Training---------------------
+datetitle: "Datum"
+descriptiontitle: "Beschreibung"
+participants: "Teilnehmer"
+locationtitle: "Ort"
+requirementstitle: "Erforderlichkeiten"
+jointraining: "Teilnehmen"
+leavetraining: "Verlassen"
+trainingcreated: "Training erstellt."
+trainingdeleted: "Training gelöscht."
+alreadyjoined: "Du hast dich für das Training bereits angemeldet."
+notjoined: "Du hast dich für das Training noch nicht angemeldet."
+
