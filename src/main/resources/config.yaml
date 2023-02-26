@@ -1,0 +1,15 @@
+bot:
+  token: "token" #place your token here
+  activitytype: "PLAYING" #PLAYING, WATCHING, LISTENING, STREAMING
+  activity: "with the config" #the activity
+  status: "ONLINE" #ONLINE, IDLE, DND, INVISIBLE
+
+database:
+  host: "localhost" #the host of the database
+  port: 3306 #the port of the database
+  database: "database" #the name of the database
+  username: "username" #the username of the database
+  password: "password" #the password of the database
+
+general:
+  updateinterval: 5 #the update interval in seconds
