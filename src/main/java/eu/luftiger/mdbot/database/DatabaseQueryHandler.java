@@ -1,18 +1,13 @@
 package eu.luftiger.mdbot.database;
 
 import eu.luftiger.mdbot.Bot;
-import eu.luftiger.mdbot.model.BotGuild;
-import eu.luftiger.mdbot.model.BotMember;
-import eu.luftiger.mdbot.model.BotRole;
-import eu.luftiger.mdbot.model.BotSignOff;
+import eu.luftiger.mdbot.model.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DatabaseQueryHandler {
 
@@ -215,6 +210,73 @@ public class DatabaseQueryHandler {
             statement.setString(3, botSignOff.getTo());
             statement.setBoolean(4, botSignOff.isAccepted());
             statement.setString(5, botSignOff.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<BotPoll> getPolls(String guildId){
+        List<BotPoll> polls = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM guild_polls_open WHERE guild_id = ?")){
+            statement.setString(1, guildId);
+            statement.execute();
+            var resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                BotPoll poll = new BotPoll(resultSet.getString("poll_id"), resultSet.getString("guild_id"), resultSet.getString("title"), resultSet.getString("creator_id"));
+                String options = resultSet.getString("options").replace("[", "").replace("]", "");
+                List<String> optionList = new ArrayList<>();
+                Collections.addAll(optionList, options.split(","));
+                for (String option : optionList) {
+                    poll.addOption(option);
+                }
+
+
+                String participants = resultSet.getString("participants").replace("{", "").replace("}", "");
+                Map<String, String> votes = new HashMap<>();
+                if (!participants.equals("")) {
+                    List<String> participantList = new ArrayList<>();
+                    Collections.addAll(participantList, participants.split(","));
+                    for (String participant : participantList) {
+                        String[] split = participant.split("=");
+                        votes.put(split[0], split[1]);
+                    }
+                }
+                polls.add(poll);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return polls;
+    }
+
+    public void addPoll(BotPoll botPoll){
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO guild_polls_open (poll_id, guild_id, title, creator_id, options, participants) VALUES (?, ?, ?, ?, ?, ?)")){
+            statement.setString(1, botPoll.getId());
+            statement.setString(2, botPoll.getGuildId());
+            statement.setString(3, botPoll.getTitle());
+            statement.setString(4, botPoll.getCreator());
+            statement.setString(5, botPoll.getOptions().toString());
+            statement.setString(6, botPoll.getVotes().toString());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updatePollParticipants(String pollId, Map<String, String> votes){
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("UPDATE guild_polls_open SET participants = ? WHERE poll_id = ?")){
+            statement.setString(1,  votes.toString());
+            statement.setString(2, pollId);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void removePoll(String pollId){
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("DELETE FROM guild_polls_open WHERE poll_id = ?")){
+            statement.setString(1, pollId);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -60,3 +60,13 @@ sicknotetitle: "Sick note"
 persontitle: "duty-number"
 sicknotecreated: "Sick note created!"
 sicknotedeleted: "Sick note deleted!"
+
+#----------------Poll--------------------
+pollresulttitle: "Poll result"
+pollparticipantscount: "Participants"
+pollclose: "Close"
+pollcreated: "Poll created!"
+polldeleted: "Poll deleted!"
+pollclosed: "Poll closed!"
+pollvoted: "You have voted!"
+alreadyvoted: "You have already voted for this option!"

@@ -3,6 +3,7 @@ package eu.luftiger.mdbot;
 import eu.luftiger.mdbot.database.DatabaseQueryHandler;
 import eu.luftiger.mdbot.model.BotGuild;
 import eu.luftiger.mdbot.model.BotMember;
+import eu.luftiger.mdbot.model.BotPoll;
 import eu.luftiger.mdbot.model.BotSignOff;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -22,7 +23,7 @@ public class GuildsProvider {
         this.databaseQueryHandler = bot.getDatabaseQueryHandler();
     }
 
-    public void init() throws Exception {
+    public void init() {
         guilds.addAll(databaseQueryHandler.getGuilds());
 
         for (BotGuild guild : guilds) {
@@ -32,6 +33,7 @@ public class GuildsProvider {
                 guild.addMember(member);
             }
 
+            guild.setPolls(databaseQueryHandler.getPolls(guild.getGuildId()));
             guild.setRoles(databaseQueryHandler.getRoles(guild.getGuildId()));
         }
     }
@@ -133,8 +135,31 @@ public class GuildsProvider {
         return false;
     }
 
+    public void addPoll(String guildId, BotPoll poll){
+        databaseQueryHandler.addPoll(poll);
+        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.addPoll(poll));
+    }
+
+    public void addPollParticipant(String guildId, String pollId, String userId, String vote){
+        BotPoll poll = getGuild(guildId).getPoll(pollId);
+        poll.addParticipant(userId, vote);
+        databaseQueryHandler.updatePollParticipants(pollId, poll.getVotes());
+    }
+
+    public void removePollParticipant(String guildId, String pollId, String userId){
+        BotPoll poll = getGuild(guildId).getPoll(pollId);
+        if(poll != null){
+            poll.removeParticipant(userId);
+            databaseQueryHandler.updatePollParticipants(guildId, poll.getVotes());
+        }
+    }
+
+    public void removePoll(String guildId, String pollId){
+        databaseQueryHandler.removePoll(pollId);
+        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.removePoll(pollId));
+    }
+
     public List<BotGuild> getGuilds() {
         return guilds;
     }
-
 }

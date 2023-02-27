@@ -17,6 +17,11 @@ public class ConfigureButton implements BotButton{
         if (bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale().equals("de"))
             languageConfiguration = bot.getConfigurationHandler().getGermanLanguageConfiguration();
 
+        if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "createpoll")){
+            event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
+            return;
+        }
+
         if(event.getComponentId().equals("configure:language")){
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();

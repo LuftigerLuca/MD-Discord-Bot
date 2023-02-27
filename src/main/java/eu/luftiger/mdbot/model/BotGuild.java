@@ -10,13 +10,15 @@ public class BotGuild {
     private String locale;
     private List<BotMember> members;
     private List<BotRole> roles;
+    private List<BotPoll> polls;
 
-    public BotGuild(String guildId, String guildName, String locale, List<BotMember> members, List<BotRole> roles) {
+    public BotGuild(String guildId, String guildName, String locale, List<BotMember> members, List<BotRole> roles, List<BotPoll> polls) {
         this.guildId = guildId;
         this.guildName = guildName;
         this.locale = locale;
         this.members = members;
         this.roles = roles;
+        this.polls = polls;
     }
 
     public BotGuild(String guildId, String guildName, String locale) {
@@ -25,6 +27,7 @@ public class BotGuild {
         this.locale = locale;
         members =  new ArrayList<>();
         roles = new ArrayList<>();
+        polls = new ArrayList<>();
     }
 
     public String getGuildId() {
@@ -109,5 +112,58 @@ public class BotGuild {
 
     public void hasRole(String roleId){
         roles.stream().anyMatch(role -> role.getRoleId().equals(roleId));
+    }
+
+    public List<BotPoll> getPolls() {
+        return polls;
+    }
+
+    public void setPolls(List<BotPoll> polls) {
+        this.polls = polls;
+    }
+
+    public void addPoll(BotPoll poll){
+        polls.add(poll);
+    }
+
+    public void removePoll(BotPoll poll){
+        polls.remove(poll);
+    }
+
+    public void removePoll(String pollId){
+        polls.removeIf(poll -> poll.getId().equals(pollId));
+    }
+
+    public void hasPoll(BotPoll poll){
+        polls.contains(poll);
+    }
+
+    public void hasPoll(String pollId){
+        polls.stream().anyMatch(poll -> poll.getId().equals(pollId));
+    }
+
+    public BotPoll getPoll(String pollId){
+        return polls.stream().filter(poll -> poll.getId().equals(pollId)).findFirst().orElse(null);
+    }
+
+    public void addMemberToPoll(String memberId, String option, String pollId){
+        BotPoll poll = getPoll(pollId);
+        if(poll != null){
+            poll.addParticipant(memberId, option);
+        }
+    }
+
+    public void removeMemberFromPoll(String memberId, String pollId){
+        BotPoll poll = getPoll(pollId);
+        if(poll != null){
+            poll.removeParticipant(memberId);
+        }
+    }
+
+    public void hasMemberInPoll(String memberId, String pollId){
+        BotPoll poll = getPoll(pollId);
+        if(poll != null){
+            poll.hasParticipant(memberId);
+        }
     }
 }

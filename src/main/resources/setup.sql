@@ -36,3 +36,15 @@ create table if not exists guild_members_signe_offs(
     primary key (signed_off_id),
     foreign key (guild_id) references guilds (id)
 );
+
+create table if not exists guild_polls_open(
+    poll_id varchar(64) not null,
+    guild_id varchar(32) not null,
+    title varchar(255) not null,
+    creator_id varchar(32) not null,
+    options varchar(255) not null,
+    participants varchar(255) not null,
+
+    primary key (poll_id),
+    foreign key (guild_id) references guilds (id)
+);

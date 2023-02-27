@@ -30,7 +30,6 @@ public class DataSourceProvider {
         return dataSource;
     }
 
-
     /**
      * Tests the connection to the database
      * @param bot the discordbot instance

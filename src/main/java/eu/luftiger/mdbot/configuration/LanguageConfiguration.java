@@ -45,5 +45,13 @@ public record LanguageConfiguration(String permissiondenied,
                                     String sicknotetitle,
                                     String persontitle,
                                     String sicknotecreated,
-                                    String sicknotedeleted){
+                                    String sicknotedeleted,
+                                    String pollresulttitle,
+                                    String pollparticipantscount,
+                                    String pollclose,
+                                    String pollcreated,
+                                    String polldeleted,
+                                    String pollclosed,
+                                    String pollvoted,
+                                    String alreadyvoted){
 }

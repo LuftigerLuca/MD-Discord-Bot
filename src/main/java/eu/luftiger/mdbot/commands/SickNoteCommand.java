@@ -21,7 +21,7 @@ public class SickNoteCommand implements BotCommand {
         LanguageConfiguration languageConfiguration = bot.getConfigurationHandler().getEnglishLanguageConfiguration();
         if(bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale().equals("de")) languageConfiguration = bot.getConfigurationHandler().getGermanLanguageConfiguration();
 
-        if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "sicknote")) {
+        if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "createsicknote")) {
             event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
             return;
         }

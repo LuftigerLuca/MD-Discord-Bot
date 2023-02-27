@@ -45,7 +45,11 @@ public class CommandHandler extends ListenerAdapter {
                 .addOption(OptionType.STRING, "from", "Start of the sick note, format: dd.MM.yyyy", true)
                 .addOption(OptionType.STRING, "to", "End of the sick note, format: dd.MM.yyyy", false);
 
-        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand).queue();
+        SlashCommandData pollCommand = Commands.slash("poll", "create a new poll")
+                .addOption(OptionType.STRING, "question", "Question of the poll", true)
+                .addOption(OptionType.STRING, "options", "Options for the poll", true);
+
+        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand, pollCommand).queue();
     }
 
     @Override
@@ -57,6 +61,7 @@ public class CommandHandler extends ListenerAdapter {
             case "info" -> new InfoCommand().execute(bot, event);
             case "training" -> new TrainingCommand().execute(bot, event);
             case "sicknote" -> new SickNoteCommand().execute(bot, event);
+            case "poll" -> new PollCommand().execute(bot, event);
         }
     }
 }

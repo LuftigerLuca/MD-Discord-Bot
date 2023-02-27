@@ -14,7 +14,6 @@ public class SignOffInfoCommand implements BotCommand {
 
     @Override
     public void execute(Bot bot, SlashCommandInteractionEvent event) {
-
         LanguageConfiguration languageConfiguration = bot.getConfigurationHandler().getEnglishLanguageConfiguration();
         if(bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale().equals("de")) languageConfiguration = bot.getConfigurationHandler().getGermanLanguageConfiguration();
 

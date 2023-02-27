@@ -61,3 +61,12 @@ persontitle: "Dienstnummer"
 sicknotecreated: "Krankmeldung erstellt."
 sicknotedeleted: "Krankmeldung gelöscht."
 
+#----------------Poll--------------------
+pollresulttitle: "Abstimmungsergebnis"
+pollparticipantscount: "Teilnehmer"
+pollclose: "Schließen"
+pollcreated: "Abstimmung erstellt."
+pollclosed: "Abstimmung geschlossen."
+polldeleted: "Abstimmung gelöscht."
+pollvoted: "Abgestimmt."
+alreadyvoted: "Du hast bereits für diese Option abgestimmt."
