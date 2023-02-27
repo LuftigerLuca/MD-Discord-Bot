@@ -41,5 +41,9 @@ public record LanguageConfiguration(String permissiondenied,
                                     String trainingcreated,
                                     String trainingdeleted,
                                     String  alreadyjoined,
-                                    String  notjoined){
+                                    String  notjoined,
+                                    String sicknotetitle,
+                                    String persontitle,
+                                    String sicknotecreated,
+                                    String sicknotedeleted){
 }

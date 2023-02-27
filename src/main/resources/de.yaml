@@ -5,6 +5,10 @@ yes: "Ja"
 no: "Nein"
 back: "Zurück"
 
+reasontitle: "Grund"
+fromtitle: "Von"
+totitle: "Bis"
+
 #-----------------Signoff--------------------
 invaliddateformat: "Das Datum muss im Format dd.MM.yyyy sein."
 signofftitle: "Abmeldung"
@@ -19,10 +23,6 @@ declinedby: "Abgelehnt von"
 uhaveaccepted: "Du hast die Abmeldung akzeptiert."
 uhavedeclined: "Du hast die Abmeldung abgelehnt."
 uhavedeleted: "Du hast die Abmeldung gelöscht."
-
-reasontitle: "Grund"
-fromtitle: "Von"
-totitle: "Bis"
 
 #-----------------Signoff-Info--------------------
 signoffinfotitle: "Abmeldung Info"
@@ -54,4 +54,10 @@ trainingcreated: "Training erstellt."
 trainingdeleted: "Training gelöscht."
 alreadyjoined: "Du hast dich für das Training bereits angemeldet."
 notjoined: "Du hast dich für das Training noch nicht angemeldet."
+
+#------------------Sicknote---------------------
+sicknotetitle: "Krankmeldung"
+persontitle: "Dienstnummer"
+sicknotecreated: "Krankmeldung erstellt."
+sicknotedeleted: "Krankmeldung gelöscht."
 

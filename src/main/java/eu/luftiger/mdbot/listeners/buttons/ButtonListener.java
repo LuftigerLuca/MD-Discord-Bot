@@ -29,6 +29,7 @@ public class ButtonListener extends ListenerAdapter {
             case "signoff" -> new SignOffButton().execute(bot, event);
             case "configure" -> new ConfigureButton().execute(bot, event);
             case "training" -> new TrainingButton().execute(bot, event);
+            case "sicknote" -> new SicknoteButton().execute(bot, event);
         }
 
 

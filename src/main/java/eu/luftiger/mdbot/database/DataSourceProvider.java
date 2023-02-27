@@ -24,8 +24,7 @@ public class DataSourceProvider {
     public static DataSource initMySQLDataSource(Bot bot, Configuration configuration) throws SQLException {
 
         MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
-        //dataSource.setUrl("jdbc:mysql://" +  configuration.getDatabaseUsername() +":" + configuration.getDatabasePassword() + "@" + configuration.getDatabaseHost() + ":" + configuration.getDatabasePort() + "/" + configuration.getDatabaseDatabase());
-        dataSource.setUrl("jdbc:mysql://u14_9qfs6pqIXf:ruos2raSf!!RZKZxubl%3DLE%2Bo@node-1.luftiger.eu:3306/s14_md_bot_test");
+        dataSource.setUrl("jdbc:mysql://" +  configuration.getDatabaseUsername() +":" + configuration.getDatabasePassword() + "@" + configuration.getDatabaseHost() + ":" + configuration.getDatabasePort() + "/" + configuration.getDatabaseDatabase());
 
         testDataSource(bot, dataSource);
         return dataSource;

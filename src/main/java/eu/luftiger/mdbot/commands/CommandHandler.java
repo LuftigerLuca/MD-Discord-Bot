@@ -39,7 +39,13 @@ public class CommandHandler extends ListenerAdapter {
                         .addOption(OptionType.STRING, "requirements", "Requirements for the training", true)
                         .addOption(OptionType.INTEGER, "maxparticipants", "Maximum amount of participants", true);
 
-        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData).queue();
+        SlashCommandData sickNoteCommand = Commands.slash("sicknote", "Create a new sick note")
+                .addOption(OptionType.STRING, "person", "Person who is sick", true)
+                .addOption(OptionType.STRING, "reason", "Reason for the sick note", true)
+                .addOption(OptionType.STRING, "from", "Start of the sick note, format: dd.MM.yyyy", true)
+                .addOption(OptionType.STRING, "to", "End of the sick note, format: dd.MM.yyyy", false);
+
+        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand).queue();
     }
 
     @Override
@@ -50,6 +56,7 @@ public class CommandHandler extends ListenerAdapter {
             case "signoffinfo" -> new SignOffInfoCommand().execute(bot, event);
             case "info" -> new InfoCommand().execute(bot, event);
             case "training" -> new TrainingCommand().execute(bot, event);
+            case "sicknote" -> new SickNoteCommand().execute(bot, event);
         }
     }
 }

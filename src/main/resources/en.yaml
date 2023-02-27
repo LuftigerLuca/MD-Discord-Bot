@@ -5,6 +5,10 @@ yes: "Yes"
 no: "No"
 back: "Back"
 
+reasontitle: "Reason"
+fromtitle: "From"
+totitle: "To"
+
 #-----------------Signoff--------------------
 invaliddateformat: "The date must be in the format dd.MM.yyyy!"
 signofftitle: "Sign off"
@@ -19,10 +23,6 @@ declinedby: "Abgelehnt von"
 uhaveaccepted: "You have accepted the sign off."
 uhavedeclined: "You have declined the sign off."
 uhavedeleted: "You have deleted the sign off."
-
-reasontitle: "Reason"
-fromtitle: "From"
-totitle: "To"
 
 #-----------------Signoff-Info--------------------
 signoffinfotitle: "Sign off Info"
@@ -54,3 +54,9 @@ trainingcreated: "Training created!"
 trainingdeleted: "Training deleted!"
 alreadyjoined: "You have already joined this training!"
 notjoined: "You have not joined this training!"
+
+#------------------Sicknote---------------------
+sicknotetitle: "Sick note"
+persontitle: "duty-number"
+sicknotecreated: "Sick note created!"
+sicknotedeleted: "Sick note deleted!"

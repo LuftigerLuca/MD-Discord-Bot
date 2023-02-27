@@ -43,7 +43,7 @@ public class TrainingCommand implements BotCommand {
         participants.append("\n-".repeat(Math.max(0, maxParticipants)));
 
         embedBuilder.addField(languageConfiguration.participants(), "[0/" + String.valueOf(maxParticipants) + "]" + participants , true);
-        embedBuilder.setAuthor(event.getMember().getNickname(), null, event.getMember().getUser().getAvatarUrl());
+        embedBuilder.setAuthor(event.getUser().getName(), null, event.getUser().getAvatarUrl());
         embedBuilder.setColor(Color.YELLOW);
 
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).addActionRow(
