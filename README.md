@@ -10,7 +10,7 @@
 | signoffinfo | user                                                             | singoffinfo    | Shows the signoff info of the user    |
  | training    | name, date, description, location, requirements, maxparticipants | createtraining | Creates a training                    |
 | sicknote    | person, reason, from, (to)                                       | createsicknote | Creates a sicknote                    |
-| configurate |                                                                  | configurate    | Configurate the bot                   |
+| configurate |                                                                  | configure   | Configurate the bot                   |
 ### Poll
 The poll comand creates a poll with the given options. The options are seperated by a comma. The bot will add buttons to the message to vote for the options. A user can only vote once and for one option. The bot will update the message with the current votes.
 
