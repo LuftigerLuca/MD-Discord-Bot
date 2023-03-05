@@ -5,6 +5,9 @@ yes: "Yes"
 no: "No"
 back: "Back"
 
+user: "User"
+role: "Role"
+
 reasontitle: "Reason"
 fromtitle: "From"
 totitle: "To"
@@ -33,8 +36,11 @@ dayssignedoff: "Days signed off"
 #-----------------Configure--------------------
 configuretitle: "Configure"
 languagetitle: "Language"
+permissiontitle: "Permission"
 whatshouldbechanged: "What should be changed?"
 changelanguage: "Choose a language"
+selectuserorrolepermission: "Choose a user or a role to change the permission."
+changeuserspermission: "%u's permission"
 
 #-----------------Information--------------------
 informationtitle: "Information"

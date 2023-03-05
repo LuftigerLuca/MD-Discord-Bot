@@ -1,16 +1,14 @@
 package eu.luftiger.mdbot;
 
 import eu.luftiger.mdbot.database.DatabaseQueryHandler;
-import eu.luftiger.mdbot.model.BotGuild;
-import eu.luftiger.mdbot.model.BotMember;
-import eu.luftiger.mdbot.model.BotPoll;
-import eu.luftiger.mdbot.model.BotSignOff;
+import eu.luftiger.mdbot.model.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GuildsProvider {
 
@@ -43,7 +41,7 @@ public class GuildsProvider {
         guilds.add(guild);
     }
 
-    public BotGuild getGuild(String guildId){
+    public BotGuild getGuild(String guildId) {
         return guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().orElse(null);
     }
 
@@ -52,12 +50,12 @@ public class GuildsProvider {
         guilds.remove(guild);
     }
 
-    public void removeGuild(String guildId){
+    public void removeGuild(String guildId) {
         databaseQueryHandler.removeGuild(guildId);
         guilds.removeIf(guild -> guild.getGuildId().equals(guildId));
     }
 
-    public void updateGuild(BotGuild guild, String newName, String locale){
+    public void updateGuild(BotGuild guild, String newName, String locale) {
         databaseQueryHandler.addGuild(guild.getGuildId(), newName, locale);
         guilds.stream().filter(g -> g.getGuildId().equals(guild.getGuildId())).findFirst().ifPresent(g -> {
             g.setGuildName(newName);
@@ -65,7 +63,7 @@ public class GuildsProvider {
         });
     }
 
-    public void updateGuild(String guildId, String newName, String locale){
+    public void updateGuild(String guildId, String newName, String locale) {
         databaseQueryHandler.addGuild(guildId, newName, locale);
         guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> {
             g.setGuildName(newName);
@@ -73,17 +71,44 @@ public class GuildsProvider {
         });
     }
 
-    public void addMember(BotMember member, String guildId){
+    public void addMember(BotMember member, String guildId) {
         databaseQueryHandler.addMember(guildId, member.getMemberId(), member.getPermissions().toString());
         guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.addMember(member));
     }
 
-    public BotMember getMember(String guildId, String memberId){
+    public BotMember getMember(String guildId, String memberId) {
         return guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().map(g -> g.getMember(memberId)).orElse(null);
     }
 
-    public void addSignOff(BotSignOff signOff){
-        if(!getGuild(signOff.getGuildId()).hasMember(signOff.getUserId())){
+    public void updateMember(BotMember member, String guildId, List<String> permissions) {
+        databaseQueryHandler.updateMemberPermissions(guildId, member.getMemberId(), permissions.toString());
+        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> {
+            g.getMembers().stream().filter(m -> m.getMemberId().equals(member.getMemberId())).findFirst().ifPresent(m -> {
+                m.setPermissions(permissions);
+            });
+        });
+    }
+
+    public BotRole getRole(String guildId, String roleId) {
+        return guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().map(g -> g.getRole(roleId)).orElse(null);
+    }
+
+    public void addRole(BotRole botRoll, String guildId) {
+        databaseQueryHandler.addRole(guildId, botRoll.getRoleId(), botRoll.getPermissions().toString());
+        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.addRole(botRoll));
+    }
+
+    public void updateRole(BotRole botRole, String guildId, List<String> permissions) {
+        databaseQueryHandler.updateRolePermissions(guildId, botRole.getRoleId(), permissions.toString());
+        guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> {
+            g.getRoles().stream().filter(r -> r.getRoleId().equals(botRole.getRoleId())).findFirst().ifPresent(r -> {
+                r.setPermissions(permissions);
+            });
+        });
+    }
+
+    public void addSignOff(BotSignOff signOff) {
+        if (!getGuild(signOff.getGuildId()).hasMember(signOff.getUserId())) {
             addMember(new BotMember(signOff.getUserId()), signOff.getGuildId());
         }
 
@@ -95,39 +120,38 @@ public class GuildsProvider {
         });
     }
 
-    public void removeSignOff(String signOffId){
+    public void removeSignOff(String signOffId) {
         BotSignOff signOff = getSignOff(signOffId);
         databaseQueryHandler.removeSignOff(signOff.getId());
-        guilds.stream().filter(g -> g.getGuildId().equals(signOff.getGuildId())).findFirst().ifPresent(g -> {
-            g.getMembers().stream().filter(m -> m.getMemberId().equals(signOff.getUserId())).findFirst().ifPresent(m -> {
-                m.getSignOffs().removeIf(s -> s.getId().equals(signOff.getId()));
-            });
+        guilds.stream().filter(g -> g.getGuildId().equals(signOff.getGuildId())).findFirst().flatMap(g -> g.getMembers().stream().filter(m -> m.getMemberId().equals(signOff.getUserId())).findFirst()).ifPresent(m -> {
+            m.getSignOffs().removeIf(s -> s.getId().equals(signOff.getId()));
         });
     }
 
-    public BotSignOff getSignOff(String signOffId){
+    public BotSignOff getSignOff(String signOffId) {
         return getGuilds().stream().flatMap(g -> g.getMembers().stream()).flatMap(m -> m.getSignOffs().stream()).filter(s -> s.getId().equals(signOffId)).findFirst().orElse(null);
     }
 
-    public void updateSignOff(String signOffId, boolean accepted){
+    public void updateSignOff(String signOffId, boolean accepted) {
         BotSignOff signOff = getSignOff(signOffId);
         signOff.setAccepted(accepted);
         databaseQueryHandler.updateSignOff(signOff);
     }
 
-    public boolean hasPermission(String guildId, String memberId, String permission){
-        if(bot.getJda().getGuildById(guildId).getOwner().getId().equals(memberId)){
+    public boolean hasPermission(String guildId, String memberId, String permission) {
+        if (bot.getJda().getGuildById(guildId).getOwner() != null && bot.getJda().getGuildById(guildId).getOwner().getId() != null && bot.getJda().getGuildById(guildId).getOwner().getId().equals(memberId)) {
             return true;
         }
 
-        if(getGuild(guildId).getMember(memberId) != null && getGuild(guildId).getMember(memberId).hasPermission(permission)){
+        if (getGuild(guildId).getMember(memberId) != null && getGuild(guildId).getMember(memberId).hasPermission(permission)) {
             return true;
         }
         Guild guild = bot.getJda().getGuildById(guildId);
-        if(guild != null){
+        if (guild != null) {
             Member member = guild.getMemberById(memberId);
             for (Role role : member.getRoles()) {
-                if(getGuild(guildId).getRole(role.getId()) != null && getGuild(guildId).getRole(role.getId()).hasPermission(permission)){
+
+                if (getGuild(guildId).getRole(role.getId()) != null && getGuild(guildId).getRole(role.getId()).hasPermission(permission)) {
                     return true;
                 }
             }
@@ -135,26 +159,26 @@ public class GuildsProvider {
         return false;
     }
 
-    public void addPoll(String guildId, BotPoll poll){
+    public void addPoll(String guildId, BotPoll poll) {
         databaseQueryHandler.addPoll(poll);
         guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.addPoll(poll));
     }
 
-    public void addPollParticipant(String guildId, String pollId, String userId, String vote){
+    public void addPollParticipant(String guildId, String pollId, String userId, String vote) {
         BotPoll poll = getGuild(guildId).getPoll(pollId);
         poll.addParticipant(userId, vote);
         databaseQueryHandler.updatePollParticipants(pollId, poll.getVotes());
     }
 
-    public void removePollParticipant(String guildId, String pollId, String userId){
+    public void removePollParticipant(String guildId, String pollId, String userId) {
         BotPoll poll = getGuild(guildId).getPoll(pollId);
-        if(poll != null){
+        if (poll != null) {
             poll.removeParticipant(userId);
             databaseQueryHandler.updatePollParticipants(guildId, poll.getVotes());
         }
     }
 
-    public void removePoll(String guildId, String pollId){
+    public void removePoll(String guildId, String pollId) {
         databaseQueryHandler.removePoll(pollId);
         guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.removePoll(pollId));
     }

@@ -43,17 +43,14 @@ public class TrainingButton implements BotButton{
 
             for (int i = 0; i < Integer.parseInt(String.valueOf(event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3))) + 1; i++) {
                 if(i==0){
-                    participantsString.append("[" + String.valueOf(participatns.size() - 1) + "/" + String.valueOf(event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3)) + "]");
+                    participantsString.append("[" + (participatns.size() - 1) + "/" + event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3) + "]");
                 }else {
                     if(participatns.size() - 1 >= i) participantsString.append("\n-").append(participatns.get(i));
                     else participantsString.append("\n-");
                 }
             }
 
-            boolean isFull = false;
-            if(participatns.size() - 1 >= Integer.parseInt(String.valueOf(event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3)))){
-                isFull = true;
-            }
+            boolean isFull = participatns.size() - 1 >= Integer.parseInt(String.valueOf(event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3)));
 
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
 
@@ -62,7 +59,7 @@ public class TrainingButton implements BotButton{
             embedBuilder.addField(languageConfiguration.descriptiontitle(), messageEmbed.getFields().get(0).getValue(), false);
             embedBuilder.addField(languageConfiguration.datetitle(), messageEmbed.getFields().get(1).getValue(), true);
             embedBuilder.addField(languageConfiguration.locationtitle(), messageEmbed.getFields().get(2).getValue(), true);
-            embedBuilder.addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false);;
+            embedBuilder.addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false);
             embedBuilder.addField(languageConfiguration.participants(), participantsString.toString(), true);
             embedBuilder.setAuthor(event.getMember().getNickname(), null, event.getMember().getUser().getAvatarUrl());
             if(isFull) embedBuilder.setColor(Color.RED);
@@ -98,7 +95,7 @@ public class TrainingButton implements BotButton{
 
             for (int i = 0; i < Integer.parseInt(String.valueOf(event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3))) + 1; i++) {
                 if(i==0){
-                    participantsString.append("[" + String.valueOf(participatns.size() - 1) + "/" + String.valueOf(event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3)) + "]");
+                    participantsString.append("[" + (participatns.size() - 1) + "/" + event.getMessage().getEmbeds().get(0).getFields().get(4).getValue().charAt(3) + "]");
                 }else {
                     if(participatns.size() - 1 >= i) participantsString.append("\n-").append(participatns.get(i));
                     else participantsString.append("\n-");
@@ -114,7 +111,7 @@ public class TrainingButton implements BotButton{
             embedBuilder.addField(languageConfiguration.descriptiontitle(), messageEmbed.getFields().get(0).getValue(), false);
             embedBuilder.addField(languageConfiguration.datetitle(), messageEmbed.getFields().get(1).getValue(), true);
             embedBuilder.addField(languageConfiguration.locationtitle(), messageEmbed.getFields().get(2).getValue(), true);
-            embedBuilder.addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false);;
+            embedBuilder.addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false);
             embedBuilder.addField(languageConfiguration.participants(), participantsString.toString(), true);
             embedBuilder.setAuthor(event.getMember().getNickname(), null, event.getMember().getUser().getAvatarUrl());
             embedBuilder.setColor(Color.YELLOW);

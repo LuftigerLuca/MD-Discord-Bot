@@ -17,7 +17,7 @@ public class SignOffButton implements BotButton{
             languageConfiguration = bot.getConfigurationHandler().getGermanLanguageConfiguration();
 
         if (event.getComponentId().equals("signoff:accept")) {
-            if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "singoffaccept")) {
+            if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "acceptsignoff")) {
                 event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
                 return;
             }
@@ -40,7 +40,7 @@ public class SignOffButton implements BotButton{
             event.reply(languageConfiguration.uhaveaccepted()).setEphemeral(true).queue();
 
         } else if (event.getComponentId().equals("signoff:decline")) {
-            if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "singoffdecline")) {
+            if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "declinesignoff")) {
                 event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
                 return;
             }
@@ -63,7 +63,7 @@ public class SignOffButton implements BotButton{
             event.reply(languageConfiguration.uhavedeclined()).setEphemeral(true).queue();
 
         } else if (event.getComponentId().equals("signoff:delete")) {
-            if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "singoffdelete")) {
+            if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "deletesignoff")) {
                 event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
                 return;
             }

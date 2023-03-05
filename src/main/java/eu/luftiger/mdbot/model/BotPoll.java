@@ -86,11 +86,11 @@ public class BotPoll {
     }
 
     public boolean hasParticipant(BotMember participant){
-        return votes.keySet().contains(participant.getMemberId());
+        return votes.containsKey(participant.getMemberId());
     }
 
     public boolean hasParticipant(String participantId){
-        return votes.keySet().contains(participantId);
+        return votes.containsKey(participantId);
     }
 
     public boolean hasParticipantOnOption(String participantId, String option){

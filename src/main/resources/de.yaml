@@ -5,6 +5,9 @@ yes: "Ja"
 no: "Nein"
 back: "Zurück"
 
+user: "Benutzer"
+role: "Rolle"
+
 reasontitle: "Grund"
 fromtitle: "Von"
 totitle: "Bis"
@@ -33,8 +36,11 @@ dayssignedoff: "Tage abgemeldet"
 #-----------------Configure--------------------
 configuretitle: "Konfigurieren"
 languagetitle: "Sprache"
+permissiontitle: "Permission"
 whatshouldbechanged: "Was soll geändert werden?"
 changelanguage: "Wähle eine Sprache aus"
+selectuserorrolepermission: "Wähle einen Benutzer oder eine Rolle aus, um die Berechtigung zu ändern."
+changeuserspermission: "%u's Berechtigung"
 
 #-----------------Information--------------------
 informationtitle: "Information"

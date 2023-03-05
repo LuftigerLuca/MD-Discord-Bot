@@ -5,6 +5,7 @@ import eu.luftiger.mdbot.commands.interfaces.BotCommand;
 import eu.luftiger.mdbot.configuration.LanguageConfiguration;
 import eu.luftiger.mdbot.model.BotMember;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
@@ -29,7 +30,9 @@ public class ConfigureCommand implements BotCommand {
         embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(false).addActionRow(
-                Button.primary("configure:language", languageConfiguration.languagetitle())
+                Button.primary("configure:language", languageConfiguration.languagetitle()),
+                Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
+                Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
         ).queue();
     }
 }

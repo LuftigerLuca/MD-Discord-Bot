@@ -13,6 +13,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import javax.sql.DataSource;
 import java.io.BufferedReader;
@@ -55,6 +57,8 @@ public class Bot {
 
         logger.info("Starting JDA...");
         jda = JDABuilder.createDefault(configurationHandler.getConfiguration().getBotToken())
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setActivity(Activity.of(Activity.ActivityType.valueOf(configurationHandler.getConfiguration().getBotActivityType().toUpperCase()), configurationHandler.getConfiguration().getBotActivity()))
                 .setStatus(OnlineStatus.valueOf(configurationHandler.getConfiguration().getBotStatus().toUpperCase()))
                 .addEventListeners(new BotJoinListener(this),
@@ -71,6 +75,8 @@ public class Bot {
         logger.info("Starting update scheduler...");
         UpdateScheduler updateScheduler = new UpdateScheduler(this);
         updateScheduler.start();
+
+        logger.info("Bot started. Type 'stop' to stop the bot.");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean running = true;

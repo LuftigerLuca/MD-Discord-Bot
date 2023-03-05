@@ -12,7 +12,7 @@ import java.util.*;
 public class DatabaseQueryHandler {
 
     private final Bot bot;
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public DatabaseQueryHandler(Bot bot, DataSource dataSource){
         this.bot = bot;
@@ -63,7 +63,7 @@ public class DatabaseQueryHandler {
             var resultSet = statement.getResultSet();
             while (resultSet.next()){
                 BotMember member = new BotMember(resultSet.getString("user_id"));
-                String permissions = resultSet.getString("permissions");
+                String permissions = resultSet.getString("permissions").replace("[", "").replace("]", "").replace(" ", "");
                 List<String> permissionList = new ArrayList<>();
                 Collections.addAll(permissionList, permissions.split(","));
                 member.setPermissions(permissionList);
@@ -117,7 +117,7 @@ public class DatabaseQueryHandler {
             var resultSet = statement.getResultSet();
             while (resultSet.next()){
                 BotRole role = new BotRole(resultSet.getString("role_id"));
-                String permissions = resultSet.getString("permissions");
+                String permissions = resultSet.getString("permissions").replace("[", "").replace("]", "").replace(" ", "");
                 List<String> permissionList = new ArrayList<>();
                 Collections.addAll(permissionList, permissions.split(","));
                 role.setPermissions(permissionList);
