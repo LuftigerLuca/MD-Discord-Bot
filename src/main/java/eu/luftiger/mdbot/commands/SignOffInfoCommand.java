@@ -35,16 +35,17 @@ public class SignOffInfoCommand implements BotCommand {
         int signOffs = bot.getGuildsProvider().getMember(event.getGuild().getId(), user.getId()).getSignOffs().size();
         int daysSingedOff = bot.getGuildsProvider().getMember(event.getGuild().getId(), user.getId()).getDaysSignedOff();
 
+        String author = user.getName();
+        if(event.getGuild().getMemberById(user.getId()) != null && event.getGuild().getMemberById(user.getId()).getNickname() != null) author = event.getGuild().getMemberById(user.getId()).getNickname();
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(languageConfiguration.signoffinfotitle());
-        embedBuilder.setAuthor(user.getName(), null, user.getAvatarUrl());
+        embedBuilder.setAuthor(author, null, user.getAvatarUrl());
         embedBuilder.setColor(Color.cyan);
         embedBuilder.addField(languageConfiguration.signedoff(), isSignOff ? languageConfiguration.yes() : languageConfiguration.no(), true);
         embedBuilder.addField(languageConfiguration.signoffs(), String.valueOf(signOffs), true);
         embedBuilder.addField(languageConfiguration.dayssignedoff(), String.valueOf(daysSingedOff), true);
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-
     }
 }

@@ -55,7 +55,11 @@ public class SickNoteCommand implements BotCommand {
         }
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor(event.getUser().getName(), null, event.getUser().getAvatarUrl());
+
+        String author = event.getUser().getName();
+        if(event.getMember().getNickname() != null) author = event.getMember().getNickname();
+
+        embedBuilder.setAuthor(author, null, event.getUser().getAvatarUrl());
         embedBuilder.setColor(Color.RED);
         embedBuilder.setTitle(languageConfiguration.sicknotetitle());
         embedBuilder.addField(languageConfiguration.persontitle(), person, false);

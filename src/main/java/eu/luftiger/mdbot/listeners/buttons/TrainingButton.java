@@ -61,7 +61,7 @@ public class TrainingButton implements BotButton{
             embedBuilder.addField(languageConfiguration.locationtitle(), messageEmbed.getFields().get(2).getValue(), true);
             embedBuilder.addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false);
             embedBuilder.addField(languageConfiguration.participants(), participantsString.toString(), true);
-            embedBuilder.setAuthor(event.getMember().getNickname(), null, event.getMember().getUser().getAvatarUrl());
+            embedBuilder.setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl());
             if(isFull) embedBuilder.setColor(Color.RED);
             else embedBuilder.setColor(Color.YELLOW);
 

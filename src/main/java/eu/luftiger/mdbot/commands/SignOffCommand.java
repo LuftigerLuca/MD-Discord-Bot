@@ -58,8 +58,11 @@ public class SignOffCommand implements BotCommand {
         if (toDate != null) embedBuilder.addField(languageConfiguration.totitle(), formatter.format(toDate), true);
         else embedBuilder.addField(languageConfiguration.totitle(), "-", true);
 
+        String author = event.getUser().getName();
+        if(event.getMember().getNickname() != null) author = event.getMember().getNickname();
+
         embedBuilder.addField("", languageConfiguration.notacceptedyet(), false);
-        embedBuilder.setAuthor(event.getUser().getName(), null, event.getUser().getAvatarUrl());
+        embedBuilder.setAuthor(author, null, event.getUser().getAvatarUrl());
         embedBuilder.setColor(Color.YELLOW);
         embedBuilder.setFooter(uuid.toString());
 

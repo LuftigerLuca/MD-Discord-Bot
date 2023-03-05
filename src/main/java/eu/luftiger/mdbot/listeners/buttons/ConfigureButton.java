@@ -30,6 +30,7 @@ public class ConfigureButton implements BotButton{
             return;
         }
 
+        //-----------------Configure:Language-----------------
         if(event.getComponentId().equals("configure:language")){
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -46,6 +47,54 @@ public class ConfigureButton implements BotButton{
             event.reply(languageConfiguration.back()).setEphemeral(true).queue();
         }
 
+        if(event.getComponentId().equals("configure:language:en")){
+            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "en");
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(languageConfiguration.configuretitle());
+            embedBuilder.setColor(Color.cyan);
+            embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
+            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
+
+            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
+                    Button.primary("configure:language", languageConfiguration.languagetitle()),
+                    Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
+                    Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
+            ).queue();
+            event.reply(languageConfiguration.back()).setEphemeral(true).queue();
+        }
+
+        if (event.getComponentId().equals("configure:language:de")) {
+            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "de");
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(languageConfiguration.configuretitle());
+            embedBuilder.setColor(Color.cyan);
+            embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
+            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
+
+            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
+                    Button.primary("configure:language", languageConfiguration.languagetitle()),
+                    Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
+                    Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
+            ).queue();
+            event.reply(languageConfiguration.back()).setEphemeral(true).queue();
+        }
+
+        if (event.getComponentId().equals("configure:language:back")) {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(languageConfiguration.configuretitle());
+            embedBuilder.setColor(Color.cyan);
+            embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
+            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
+
+            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
+                    Button.primary("configure:language", languageConfiguration.languagetitle()),
+                    Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
+                    Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
+            ).queue();
+            event.reply(languageConfiguration.back()).setEphemeral(true).queue();
+        }
+
+        //-----------------Configure:Permissions-----------------
         if (event.getComponentId().equals("configure:permissions")){
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -317,9 +366,6 @@ public class ConfigureButton implements BotButton{
             event.reply(languageConfiguration.back()).setEphemeral(true).queue();
         }
 
-
-
-
         if(event.getComponentId().equals("configure:permissions:back")){
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -336,54 +382,7 @@ public class ConfigureButton implements BotButton{
             event.reply(languageConfiguration.back()).setEphemeral(true).queue();
         }
 
-
-        if(event.getComponentId().equals("configure:language:en")){
-            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "en");
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(languageConfiguration.configuretitle());
-            embedBuilder.setColor(Color.cyan);
-            embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
-            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
-
-            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
-                    Button.primary("configure:language", languageConfiguration.languagetitle()),
-                    Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
-                    Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
-            ).queue();
-            event.reply(languageConfiguration.back()).setEphemeral(true).queue();
-        }
-
-        if (event.getComponentId().equals("configure:language:de")) {
-            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "de");
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(languageConfiguration.configuretitle());
-            embedBuilder.setColor(Color.cyan);
-            embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
-            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
-
-            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
-                    Button.primary("configure:language", languageConfiguration.languagetitle()),
-                    Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
-                    Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
-            ).queue();
-            event.reply(languageConfiguration.back()).setEphemeral(true).queue();
-        }
-
-        if (event.getComponentId().equals("configure:language:back")) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(languageConfiguration.configuretitle());
-            embedBuilder.setColor(Color.cyan);
-            embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
-            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
-
-            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
-                    Button.primary("configure:language", languageConfiguration.languagetitle()),
-                    Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
-                    Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
-            ).queue();
-            event.reply(languageConfiguration.back()).setEphemeral(true).queue();
-        }
-
+        //------------------------General------------------------
         if(event.getComponentId().equals("configure:delete")){
             event.getMessage().delete().queue();
             event.reply(languageConfiguration.back()).setEphemeral(true).queue();
