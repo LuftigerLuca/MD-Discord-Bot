@@ -86,10 +86,11 @@ public class PollButton implements BotButton {
             bot.getGuildsProvider().addPollParticipant(event.getGuild().getId(), event.getMessage().getEmbeds().get(0).getFooter().getText(), event.getUser().getId(), option);
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(messageEmbed.getTitle());
-            embedBuilder.setColor(messageEmbed.getColor());
-            embedBuilder.setDescription(messageEmbed.getDescription());
-            embedBuilder.addField(languageConfiguration.participants(), String.valueOf(participatsCount), false);
+            embedBuilder.setTitle(messageEmbed.getTitle())
+                    .setColor(messageEmbed.getColor())
+                    .setDescription(messageEmbed.getDescription())
+                    .setFooter(messageEmbed.getFooter().getText())
+                    .addField(languageConfiguration.participants(), String.valueOf(participatsCount), false);
 
             for(Map.Entry<String, Integer> entry : optionVotes.entrySet()){
                 float percentageVote = (float) entry.getValue() / participatsCount * 100;
@@ -104,8 +105,6 @@ public class PollButton implements BotButton {
 
                 embedBuilder.addField(entry.getKey(), percentageString.toString(), false);
             }
-
-            embedBuilder.setFooter(messageEmbed.getFooter().getText());
 
             List<Button> optionButtons = new ArrayList<>();
             for (String s : optionVotes.keySet().stream().toList()) {

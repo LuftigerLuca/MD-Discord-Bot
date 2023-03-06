@@ -50,21 +50,22 @@ public class SignOffCommand implements BotCommand {
             throw new RuntimeException(e);
         }
 
+        String author = event.getUser().getName();
+        if(event.getMember().getNickname() != null) author = event.getMember().getNickname();
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(languageConfiguration.signofftitle());
-        embedBuilder.addField(languageConfiguration.reasontitle(), reason, false);
-        embedBuilder.addField(languageConfiguration.fromtitle(), formatter.format(fromDate), true);
+        embedBuilder.setTitle(languageConfiguration.signofftitle())
+            .addField(languageConfiguration.reasontitle(), reason, false)
+            .addField(languageConfiguration.fromtitle(), formatter.format(fromDate), true)
+            .setAuthor(author, null, event.getUser().getAvatarUrl())
+            .setColor(Color.YELLOW)
+            .setFooter(uuid.toString());
 
         if (toDate != null) embedBuilder.addField(languageConfiguration.totitle(), formatter.format(toDate), true);
         else embedBuilder.addField(languageConfiguration.totitle(), "-", true);
 
-        String author = event.getUser().getName();
-        if(event.getMember().getNickname() != null) author = event.getMember().getNickname();
-
         embedBuilder.addField("", languageConfiguration.notacceptedyet(), false);
-        embedBuilder.setAuthor(author, null, event.getUser().getAvatarUrl());
-        embedBuilder.setColor(Color.YELLOW);
-        embedBuilder.setFooter(uuid.toString());
+
 
         event.getChannel().sendMessageEmbeds(embedBuilder.build())
                 .addActionRow(

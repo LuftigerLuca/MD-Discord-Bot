@@ -17,8 +17,6 @@ public class SignOffInfoCommand implements BotCommand {
         LanguageConfiguration languageConfiguration = bot.getConfigurationHandler().getEnglishLanguageConfiguration();
         if(bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale().equals("de")) languageConfiguration = bot.getConfigurationHandler().getGermanLanguageConfiguration();
 
-        BotMember member = bot.getGuildsProvider().getMember(event.getGuild().getId(), event.getUser().getId());
-
         if(!bot.getGuildsProvider().hasPermission(event.getGuild().getId(), event.getMember().getId(), "singoffinfo")) {
             event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
             return;
@@ -39,12 +37,12 @@ public class SignOffInfoCommand implements BotCommand {
         if(event.getGuild().getMemberById(user.getId()) != null && event.getGuild().getMemberById(user.getId()).getNickname() != null) author = event.getGuild().getMemberById(user.getId()).getNickname();
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(languageConfiguration.signoffinfotitle());
-        embedBuilder.setAuthor(author, null, user.getAvatarUrl());
-        embedBuilder.setColor(Color.cyan);
-        embedBuilder.addField(languageConfiguration.signedoff(), isSignOff ? languageConfiguration.yes() : languageConfiguration.no(), true);
-        embedBuilder.addField(languageConfiguration.signoffs(), String.valueOf(signOffs), true);
-        embedBuilder.addField(languageConfiguration.dayssignedoff(), String.valueOf(daysSingedOff), true);
+        embedBuilder.setTitle(languageConfiguration.signoffinfotitle())
+                .setAuthor(author, null, user.getAvatarUrl())
+                .setColor(Color.cyan)
+                .addField(languageConfiguration.signedoff(), isSignOff ? languageConfiguration.yes() : languageConfiguration.no(), true)
+                .addField(languageConfiguration.signoffs(), String.valueOf(signOffs), true)
+                .addField(languageConfiguration.dayssignedoff(), String.valueOf(daysSingedOff), true);
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }

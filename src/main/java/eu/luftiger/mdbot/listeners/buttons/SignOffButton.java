@@ -24,15 +24,15 @@ public class SignOffButton implements BotButton{
 
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(languageConfiguration.signofftitle());
-            embedBuilder.setDescription(messageEmbed.getDescription());
-            embedBuilder.setColor(Color.GREEN);
-            embedBuilder.setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl());
-            embedBuilder.addField(languageConfiguration.reasontitle(), messageEmbed.getFields().get(0).getValue(), false);
-            embedBuilder.addField(languageConfiguration.fromtitle(), messageEmbed.getFields().get(1).getValue(), true);
-            embedBuilder.addField(languageConfiguration.totitle(), messageEmbed.getFields().get(2).getValue(), true);
-            embedBuilder.addField(languageConfiguration.acceptbutton(), event.getUser().getAsTag(), false);
-            embedBuilder.setFooter(messageEmbed.getFooter().getText());
+            embedBuilder.setTitle(languageConfiguration.signofftitle())
+                    .setDescription(messageEmbed.getDescription())
+                    .setColor(Color.GREEN)
+                    .setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl())
+                    .addField(languageConfiguration.reasontitle(), messageEmbed.getFields().get(0).getValue(), false)
+                    .addField(languageConfiguration.fromtitle(), messageEmbed.getFields().get(1).getValue(), true)
+                    .addField(languageConfiguration.totitle(), messageEmbed.getFields().get(2).getValue(), true)
+                    .addField(languageConfiguration.acceptbutton(), event.getUser().getAsTag(), false)
+                    .setFooter(messageEmbed.getFooter().getText());
 
             bot.getGuildsProvider().updateSignOff(messageEmbed.getFooter().getText(), true);
             event.getMessage().editMessageEmbeds(embedBuilder.build()).queue();
@@ -48,14 +48,14 @@ public class SignOffButton implements BotButton{
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(languageConfiguration.signofftitle());
-            embedBuilder.setDescription(messageEmbed.getDescription());
-            embedBuilder.setColor(Color.RED);
-            embedBuilder.setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl());
-            embedBuilder.addField(languageConfiguration.reasontitle(), messageEmbed.getFields().get(0).getValue(), false);
-            embedBuilder.addField(languageConfiguration.fromtitle(), messageEmbed.getFields().get(1).getValue(), true);
-            embedBuilder.addField(languageConfiguration.totitle(), messageEmbed.getFields().get(2).getValue(), true);
-            embedBuilder.addField(languageConfiguration.declinedby(), event.getUser().getAsTag(), false);
-            embedBuilder.setFooter(messageEmbed.getFooter().getText());
+            embedBuilder.setDescription(messageEmbed.getDescription())
+                    .setColor(Color.RED)
+                    .setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl())
+                    .addField(languageConfiguration.reasontitle(), messageEmbed.getFields().get(0).getValue(), false)
+                    .addField(languageConfiguration.fromtitle(), messageEmbed.getFields().get(1).getValue(), true)
+                    .addField(languageConfiguration.totitle(), messageEmbed.getFields().get(2).getValue(), true)
+                    .addField(languageConfiguration.declinedby(), event.getUser().getAsTag(), false)
+                    .setFooter(messageEmbed.getFooter().getText());
 
             bot.getGuildsProvider().updateSignOff(messageEmbed.getFooter().getText(), false);
             event.getMessage().editMessageEmbeds(embedBuilder.build()).queue();

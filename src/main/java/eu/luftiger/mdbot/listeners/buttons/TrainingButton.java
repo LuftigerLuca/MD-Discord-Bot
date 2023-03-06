@@ -55,13 +55,14 @@ public class TrainingButton implements BotButton{
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(messageEmbed.getTitle());
-            embedBuilder.addField(languageConfiguration.descriptiontitle(), messageEmbed.getFields().get(0).getValue(), false);
-            embedBuilder.addField(languageConfiguration.datetitle(), messageEmbed.getFields().get(1).getValue(), true);
-            embedBuilder.addField(languageConfiguration.locationtitle(), messageEmbed.getFields().get(2).getValue(), true);
-            embedBuilder.addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false);
-            embedBuilder.addField(languageConfiguration.participants(), participantsString.toString(), true);
-            embedBuilder.setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl());
+            embedBuilder.setTitle(messageEmbed.getTitle())
+                    .addField(languageConfiguration.descriptiontitle(), messageEmbed.getFields().get(0).getValue(), false)
+                    .addField(languageConfiguration.datetitle(), messageEmbed.getFields().get(1).getValue(), true)
+                    .addField(languageConfiguration.locationtitle(), messageEmbed.getFields().get(2).getValue(), true)
+                    .addField(languageConfiguration.requirementstitle(), messageEmbed.getFields().get(3).getValue(), false)
+                    .addField(languageConfiguration.participants(), participantsString.toString(), true)
+                    .setAuthor(messageEmbed.getAuthor().getName(), null, messageEmbed.getAuthor().getIconUrl());
+
             if(isFull) embedBuilder.setColor(Color.RED);
             else embedBuilder.setColor(Color.YELLOW);
 

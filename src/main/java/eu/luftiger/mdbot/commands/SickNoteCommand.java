@@ -59,12 +59,12 @@ public class SickNoteCommand implements BotCommand {
         String author = event.getUser().getName();
         if(event.getMember().getNickname() != null) author = event.getMember().getNickname();
 
-        embedBuilder.setAuthor(author, null, event.getUser().getAvatarUrl());
-        embedBuilder.setColor(Color.RED);
-        embedBuilder.setTitle(languageConfiguration.sicknotetitle());
-        embedBuilder.addField(languageConfiguration.persontitle(), person, false);
-        embedBuilder.addField(languageConfiguration.reasontitle(), reason, false);
-        embedBuilder.addField(languageConfiguration.fromtitle(), formatter.format(fromDate), true);
+        embedBuilder.setAuthor(author, null, event.getUser().getAvatarUrl())
+                .setColor(Color.RED)
+                .setTitle(languageConfiguration.sicknotetitle())
+                .addField(languageConfiguration.persontitle(), person, false)
+                .addField(languageConfiguration.reasontitle(), reason, false)
+                .addField(languageConfiguration.fromtitle(), formatter.format(fromDate), true);
 
         if (toDate != null) embedBuilder.addField(languageConfiguration.totitle(), formatter.format(toDate), true);
         else embedBuilder.addField(languageConfiguration.totitle(), "-", true);
@@ -73,7 +73,5 @@ public class SickNoteCommand implements BotCommand {
                 Button.danger("sicknote:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
         ).queue();
         event.reply(languageConfiguration.sicknotecreated()).setEphemeral(true).queue();
-
-
     }
 }

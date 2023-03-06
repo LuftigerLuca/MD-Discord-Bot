@@ -32,13 +32,14 @@ public class PollCommand implements BotCommand {
         String id = UUID.randomUUID().toString();
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(question);
-        embedBuilder.setColor(Color.cyan);
-        embedBuilder.addField(languageConfiguration.pollparticipantscount(), "0", false);
+        embedBuilder.setTitle(question)
+                .setColor(Color.cyan)
+                .addField(languageConfiguration.pollparticipantscount(), "0", false)
+                .setFooter(id);
+
         for (String option : options) {
             embedBuilder.addField(option, "[....................................................................................................] 0%", false);
         }
-        embedBuilder.setFooter(id);
 
         List<Button> optionButtons = new ArrayList<>();
         for (String option : options) {

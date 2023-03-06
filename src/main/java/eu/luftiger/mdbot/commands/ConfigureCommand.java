@@ -24,10 +24,10 @@ public class ConfigureCommand implements BotCommand {
         }
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(languageConfiguration.configuretitle());
-        embedBuilder.setColor(Color.cyan);
-        embedBuilder.addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true);
-        embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
+        embedBuilder.setTitle(languageConfiguration.configuretitle())
+                .setColor(Color.cyan)
+                .addField(languageConfiguration.languagetitle(), bot.getGuildsProvider().getGuild(event.getGuild().getId()).getLocale(), true)
+                .addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(false).addActionRow(
                 Button.primary("configure:language", languageConfiguration.languagetitle()),

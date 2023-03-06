@@ -32,18 +32,20 @@ public class TrainingCommand implements BotCommand {
         String requirements = event.getOption("requirements").getAsString();
         int maxParticipants = event.getOption("maxparticipants").getAsInt();
 
+        String author = event.getUser().getName();
+        if(event.getMember().getNickname() != null) author = event.getMember().getNickname();
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(name);
-        embedBuilder.addField(languageConfiguration.descriptiontitle(), description, false);
-        embedBuilder.addField(languageConfiguration.datetitle(), date, true);
-        embedBuilder.addField(languageConfiguration.locationtitle(), location, true);
-        embedBuilder.addField(languageConfiguration.requirementstitle(), requirements, false);
+        embedBuilder.setTitle(name)
+                .addField(languageConfiguration.descriptiontitle(), description, false)
+                .addField(languageConfiguration.datetitle(), date, true)
+                .addField(languageConfiguration.locationtitle(), location, true)
+                .addField(languageConfiguration.requirementstitle(), requirements, false)
+                .setAuthor(author, null, event.getUser().getAvatarUrl())
+                .setColor(Color.YELLOW);
 
         String participants = "\n-".repeat(Math.max(0, maxParticipants));
-
         embedBuilder.addField(languageConfiguration.participants(), "[0/" + maxParticipants + "]" + participants, true);
-        embedBuilder.setAuthor(event.getUser().getName(), null, event.getUser().getAvatarUrl());
-        embedBuilder.setColor(Color.YELLOW);
 
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).addActionRow(
                 Button.success("training:join", languageConfiguration.jointraining()),

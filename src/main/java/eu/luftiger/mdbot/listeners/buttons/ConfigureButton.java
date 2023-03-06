@@ -369,10 +369,10 @@ public class ConfigureButton implements BotButton{
         if(event.getComponentId().equals("configure:permissions:back")){
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(messageEmbed.getTitle());
-            embedBuilder.setColor(Color.cyan);
-            embedBuilder.addField(messageEmbed.getFields().get(0).getName(), messageEmbed.getFields().get(0).getValue(), true);
-            embedBuilder.addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
+            embedBuilder.setTitle(messageEmbed.getTitle())
+                    .setColor(Color.cyan)
+                    .addField(messageEmbed.getFields().get(0).getName(), messageEmbed.getFields().get(0).getValue(), true)
+                    .addField("                                  ", languageConfiguration.whatshouldbechanged(), false);
 
             event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
                     Button.primary("configure:language", languageConfiguration.languagetitle()),
