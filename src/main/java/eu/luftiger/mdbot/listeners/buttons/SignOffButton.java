@@ -4,7 +4,9 @@ import eu.luftiger.mdbot.Bot;
 import eu.luftiger.mdbot.configuration.LanguageConfiguration;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 
@@ -35,7 +37,11 @@ public class SignOffButton implements BotButton{
                     .setFooter(messageEmbed.getFooter().getText());
 
             bot.getGuildsProvider().updateSignOff(messageEmbed.getFooter().getText(), true);
-            event.getMessage().editMessageEmbeds(embedBuilder.build()).queue();
+            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
+                    Button.success("signoff:accept", languageConfiguration.acceptbutton()).asDisabled(),
+                    Button.danger("signoff:decline", languageConfiguration.declinebutton()),
+                    Button.danger("signoff:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
+            ).queue();
 
             event.reply(languageConfiguration.uhaveaccepted()).setEphemeral(true).queue();
 
@@ -58,7 +64,11 @@ public class SignOffButton implements BotButton{
                     .setFooter(messageEmbed.getFooter().getText());
 
             bot.getGuildsProvider().updateSignOff(messageEmbed.getFooter().getText(), false);
-            event.getMessage().editMessageEmbeds(embedBuilder.build()).queue();
+            event.getMessage().editMessageEmbeds(embedBuilder.build()).setActionRow(
+                    Button.success("signoff:accept", languageConfiguration.acceptbutton()),
+                    Button.danger("signoff:decline", languageConfiguration.declinebutton()).asDisabled(),
+                    Button.danger("signoff:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
+            ).queue();
 
             event.reply(languageConfiguration.uhavedeclined()).setEphemeral(true).queue();
 
@@ -67,7 +77,6 @@ public class SignOffButton implements BotButton{
                 event.reply(languageConfiguration.permissiondenied()).setEphemeral(true).queue();
                 return;
             }
-
 
             MessageEmbed messageEmbed = event.getMessage().getEmbeds().get(0);
             String messageId = messageEmbed.getFooter().getText();

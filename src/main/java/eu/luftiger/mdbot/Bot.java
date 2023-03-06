@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class Bot {
@@ -27,7 +28,7 @@ public class Bot {
     private ConfigurationHandler configurationHandler;
     private DatabaseQueryHandler databaseQueryHandler;
     private GuildsProvider guildsProvider;
-
+    private Properties properties;
     private JDA jda;
 
     public static void main(String[] args) {
@@ -41,6 +42,10 @@ public class Bot {
     public void start() throws Exception {
         logger = Logger.getLogger("Bot");
         logger.info("Starting bot...");
+
+        logger.info("Loading properties...");
+        properties = new Properties();
+        properties.load(new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("bot.properties"))));
 
         logger.info("Loading configuration...");
         configurationHandler = new ConfigurationHandler(this);
@@ -91,10 +96,6 @@ public class Bot {
         }
     }
 
-
-    public String getVersion() {
-        return "1.0.1";
-    }
     public Logger getLogger() {
         return logger;
     }
@@ -109,6 +110,10 @@ public class Bot {
 
     public GuildsProvider getGuildsProvider() {
         return guildsProvider;
+    }
+
+    public Properties getProperties() {
+        return properties;
     }
 
     public JDA getJda() {

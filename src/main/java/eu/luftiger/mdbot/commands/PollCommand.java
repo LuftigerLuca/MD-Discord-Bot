@@ -57,7 +57,6 @@ public class PollCommand implements BotCommand {
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).addActionRow(optionButtons.subList(0, 5)).addActionRow(optionButtons.subList(5, optionButtons.size())).queue();
         }
 
-
         event.reply(languageConfiguration.pollcreated()).setEphemeral(true).queue();
     }
 }
