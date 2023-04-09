@@ -31,7 +31,7 @@ public class ConfigureCommand implements BotCommand {
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(false).addActionRow(
                 Button.primary("configure:language", languageConfiguration.languagetitle()),
-                Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
+                //Button.primary("configure:permissions", languageConfiguration.permissiontitle()),
                 Button.danger("configure:delete", " ").withEmoji(Emoji.fromUnicode("U+1F5D1"))
         ).queue();
     }

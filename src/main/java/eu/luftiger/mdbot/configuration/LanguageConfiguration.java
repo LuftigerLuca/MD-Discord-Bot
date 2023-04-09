@@ -58,5 +58,9 @@ public record LanguageConfiguration(String permissiondenied,
                                     String polldeleted,
                                     String pollclosed,
                                     String pollvoted,
-                                    String alreadyvoted){
+                                    String alreadyvoted,
+                                    String infologtitle,
+                                    String debuglogtitle,
+                                    String errorlogtitle,
+                                    String logtitle) {
 }

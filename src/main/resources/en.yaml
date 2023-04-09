@@ -76,3 +76,9 @@ polldeleted: "Poll deleted!"
 pollclosed: "Poll closed!"
 pollvoted: "You have voted!"
 alreadyvoted: "You have already voted for this option!"
+
+#-----------------Logger--------------------
+infologtitle: "Info - Log"
+debuglogtitle: "Debug - Log"
+errorlogtitle: "Error - Log"
+logtitle: "Log"

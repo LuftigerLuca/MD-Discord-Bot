@@ -76,3 +76,11 @@ pollclosed: "Abstimmung geschlossen."
 polldeleted: "Abstimmung gelöscht."
 pollvoted: "Abgestimmt."
 alreadyvoted: "Du hast bereits für diese Option abgestimmt."
+
+
+#-----------------Logger--------------------
+infologtitle: "Info - Log"
+debuglogtitle: "Debug - Log"
+errorlogtitle: "Error - Log"
+logtitle: "Log"
+

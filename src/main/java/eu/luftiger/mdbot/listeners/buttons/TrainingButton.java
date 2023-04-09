@@ -135,5 +135,8 @@ public class TrainingButton implements BotButton{
             messageEditAction.queue();
             event.reply(languageConfiguration.leavetraining()).setEphemeral(true).queue();
         }
+
+
+        //TODO: Implement close training
     }
 }
