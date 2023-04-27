@@ -82,3 +82,8 @@ infologtitle: "Info - Log"
 debuglogtitle: "Debug - Log"
 errorlogtitle: "Error - Log"
 logtitle: "Log"
+
+#-----------------Medication--------------------
+medicationtitle: "Medikationadvices"
+medicationsymptomsarea: "In which area are the symptoms given?"
+medicationsymptoms: "What are the symptoms?"

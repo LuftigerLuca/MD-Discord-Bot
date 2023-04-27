@@ -2,12 +2,14 @@ package eu.luftiger.mdbot;
 
 import eu.luftiger.mdbot.commands.CommandHandler;
 import eu.luftiger.mdbot.configuration.ConfigurationHandler;
+import eu.luftiger.mdbot.configuration.MedicationHandler;
 import eu.luftiger.mdbot.database.DataSourceProvider;
 import eu.luftiger.mdbot.database.DatabaseQueryHandler;
 import eu.luftiger.mdbot.database.DatabaseSetup;
 import eu.luftiger.mdbot.listeners.BotJoinListener;
 import eu.luftiger.mdbot.listeners.BotLeaveListener;
 import eu.luftiger.mdbot.listeners.buttons.ButtonListener;
+import eu.luftiger.mdbot.listeners.menus.MenuListener;
 import eu.luftiger.mdbot.schedulers.UpdateScheduler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -18,7 +20,9 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import javax.sql.DataSource;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -26,34 +30,52 @@ public class Bot {
 
     private Logger logger;
     private ConfigurationHandler configurationHandler;
+    private MedicationHandler medicationHandler;
     private DatabaseQueryHandler databaseQueryHandler;
     private GuildsProvider guildsProvider;
     private Properties properties;
     private JDA jda;
 
     public static void main(String[] args) {
-        try {
-            new Bot().start();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        new Bot().start();
     }
 
-    public void start() throws Exception {
+    public void start() {
         logger = Logger.getLogger("Bot");
         logger.info("Starting bot...");
 
         logger.info("Loading properties...");
         properties = new Properties();
-        properties.load(new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("bot.properties"))));
+        try {
+            properties.load(new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("bot.properties"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         logger.info("Loading configuration...");
         configurationHandler = new ConfigurationHandler(this);
-        configurationHandler.loadConfiguration();
+        try {
+            configurationHandler.loadConfiguration();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("Loading medications...");
+        medicationHandler = new MedicationHandler();
+        try {
+            medicationHandler.loadMedications();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         logger.info("Connecting to database...");
-        DataSource dataSource = DataSourceProvider.initMySQLDataSource(this, configurationHandler.getConfiguration());
-        DatabaseSetup.initDatabase(this, dataSource);
+        DataSource dataSource = null;
+        try {
+            dataSource = DataSourceProvider.initMySQLDataSource(this, configurationHandler.getConfiguration());
+            DatabaseSetup.initDatabase(this, dataSource);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         databaseQueryHandler = new DatabaseQueryHandler(this, dataSource);
 
 
@@ -69,10 +91,15 @@ public class Bot {
                 .addEventListeners(new BotJoinListener(this),
                         new BotLeaveListener(this),
                         new CommandHandler(this),
-                        new ButtonListener(this))
+                        new ButtonListener(this),
+                        new MenuListener(this))
                 .build();
 
-        jda.awaitReady();
+        try {
+            jda.awaitReady();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         CommandHandler commandHandler = new CommandHandler(this);
         commandHandler.registerCommands();
@@ -86,7 +113,12 @@ public class Bot {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean running = true;
         while (running) {
-            String line = reader.readLine();
+            String line = null;
+            try {
+                line = reader.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             if (line.equals("exit") || line.equals("quit") || line.equals("stop")) {
                 logger.info("Shutting down...");
                 updateScheduler.stop();
@@ -102,6 +134,10 @@ public class Bot {
 
     public ConfigurationHandler getConfigurationHandler() {
         return configurationHandler;
+    }
+
+    public MedicationHandler getMedicationHandler() {
+        return medicationHandler;
     }
 
     public DatabaseQueryHandler getDatabaseQueryHandler() {
