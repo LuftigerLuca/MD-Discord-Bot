@@ -16,7 +16,6 @@ public class MenuListener extends ListenerAdapter {
     public void onStringSelectInteraction(StringSelectInteractionEvent event){
         String componentId = event.getComponentId();
         switch (componentId.split(":")[0]){
-            case "medication" -> new MedicationMenu().execute(bot, event);
             case "configure" -> new ConfigurationMenu().execute(bot, event);
         }
     }

@@ -43,7 +43,8 @@ public class CommandHandler extends ListenerAdapter {
                 .addOption(OptionType.STRING, "person", "Person who is sick", true)
                 .addOption(OptionType.STRING, "reason", "Reason for the sick note", true)
                 .addOption(OptionType.STRING, "from", "Start of the sick note, format: dd.MM.yyyy", true)
-                .addOption(OptionType.STRING, "to", "End of the sick note, format: dd.MM.yyyy", false);
+                .addOption(OptionType.STRING, "to", "End of the sick note, format: dd.MM.yyyy", false)
+                .addOption(OptionType.STRING, "other", "Other information about the sick note", false);
 
         SlashCommandData pollCommand = Commands.slash("poll", "create a new poll")
                 .addOption(OptionType.STRING, "question", "Question of the poll", true)
@@ -54,7 +55,11 @@ public class CommandHandler extends ListenerAdapter {
                 .addOption(OptionType.CHANNEL, "channel", "Channel to send the message", true)
                 .addOption(OptionType.BOOLEAN, "enabled", "Enable or disable the greeting message", true);
 
-        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand, pollCommand, setGreetingCommand).queue();
+        SlashCommandData uprankCommand = Commands.slash("uprank", "Uprank a user")
+                .addOption(OptionType.USER, "user", "User to uprank", true)
+                .addOption(OptionType.ROLE, "role", "Role to uprank to", true);
+
+        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand, pollCommand, setGreetingCommand, uprankCommand).queue();
     }
 
     @Override
@@ -68,6 +73,7 @@ public class CommandHandler extends ListenerAdapter {
             case "sicknote" -> new SickNoteCommand().execute(bot, event);
             case "poll" -> new PollCommand().execute(bot, event);
             case "setgreeting" -> new SetGreetingCommand().execute(bot, event);
+            case "uprank" -> new UprankCommand().execute(bot, event);
         }
     }
 }

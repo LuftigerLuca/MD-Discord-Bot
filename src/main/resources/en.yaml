@@ -63,7 +63,8 @@ notjoined: "You have not joined this training!"
 
 #------------------Sicknote---------------------
 sicknotetitle: "Sick note"
-persontitle: "duty-number"
+persontitle: "Duty-number"
+othertitle: Other"
 sicknotecreated: "Sick note created!"
 sicknotedeleted: "Sick note deleted!"
 
@@ -91,3 +92,9 @@ medicationsymptoms: "What are the symptoms?"
 #-----------------Greeting--------------------
 greetingset: "The greeting has been edited."
 greetingchannelnotvalid: "The channel is not valid."
+
+#-----------------Uprank--------------------
+upranktitle: "Promotion"
+upranktext: "Congratulations to {target} on being promoted to {role}!"
+uprankfooter: "Best regards, {user}"
+upranked: "promoted"

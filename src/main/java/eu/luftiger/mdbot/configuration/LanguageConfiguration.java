@@ -49,6 +49,7 @@ public record LanguageConfiguration(String permissiondenied,
                                     String notjoined,
                                     String sicknotetitle,
                                     String persontitle,
+                                    String othertitle,
                                     String sicknotecreated,
                                     String sicknotedeleted,
                                     String pollresulttitle,
@@ -67,5 +68,9 @@ public record LanguageConfiguration(String permissiondenied,
                                     String medicationsymptomsarea,
                                     String medicationsymptoms,
                                     String greetingset,
-                                    String greetingchannelnotvalid) {
+                                    String greetingchannelnotvalid,
+                                    String upranktitle,
+                                    String upranktext,
+                                    String uprankfooter,
+                                    String upranked) {
 }

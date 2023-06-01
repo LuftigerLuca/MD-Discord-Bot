@@ -4,7 +4,6 @@ import eu.luftiger.mdbot.Bot;
 import eu.luftiger.mdbot.commands.interfaces.BotCommand;
 import eu.luftiger.mdbot.configuration.LanguageConfiguration;
 import eu.luftiger.mdbot.model.BotGuild;
-import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

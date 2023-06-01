@@ -64,6 +64,7 @@ notjoined: "Du hast dich für das Training noch nicht angemeldet."
 #------------------Sicknote---------------------
 sicknotetitle: "Krankmeldung"
 persontitle: "Dienstnummer"
+othertitle: "Sonstiges"
 sicknotecreated: "Krankmeldung erstellt."
 sicknotedeleted: "Krankmeldung gelöscht."
 
@@ -92,3 +93,9 @@ medicationsymptoms: "Welche Symptome sind vorhanden?"
 #-----------------Greeting--------------------
 greetingset: "Die Begrüßungseinstellungen wurden geändert."
 greetingchannelnotvalid: "Der Channel ist nicht gültig."
+
+#-----------------Uprank--------------------
+upranktitle: "Beförderung"
+upranktext: "Wir gratulieren {target} zur Berförderung zum {role}!"
+uprankfooter: "Mit freundlichen Grüßen, {user}"
+upranked: "Befördert"

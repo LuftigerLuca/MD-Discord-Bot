@@ -54,6 +54,9 @@ public class SickNoteCommand implements BotCommand {
             throw new RuntimeException(e);
         }
 
+        String other = null;
+        if(event.getOption("other") != null) other = event.getOption("other").getAsString();
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         String author = event.getUser().getName();
@@ -63,8 +66,11 @@ public class SickNoteCommand implements BotCommand {
                 .setColor(Color.RED)
                 .setTitle(languageConfiguration.sicknotetitle())
                 .addField(languageConfiguration.persontitle(), person, false)
-                .addField(languageConfiguration.reasontitle(), reason, false)
-                .addField(languageConfiguration.fromtitle(), formatter.format(fromDate), true);
+                .addField(languageConfiguration.reasontitle(), reason, false);
+
+        if(other != null) embedBuilder.addField(languageConfiguration.othertitle(), other, false);
+
+        embedBuilder.addField(languageConfiguration.fromtitle(), formatter.format(fromDate), true);
 
         if (toDate != null) embedBuilder.addField(languageConfiguration.totitle(), formatter.format(toDate), true);
         else embedBuilder.addField(languageConfiguration.totitle(), "-", true);
