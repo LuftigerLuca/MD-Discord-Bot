@@ -8,23 +8,34 @@ public class BotGuild {
     private final String guildId;
     private String guildName;
     private String locale;
+
+    private String greetingMessage;
+    private String greetingChannelId;
+    private boolean greetingEnabled;
+
     private List<BotMember> members;
     private List<BotRole> roles;
     private List<BotPoll> polls;
 
-    public BotGuild(String guildId, String guildName, String locale, List<BotMember> members, List<BotRole> roles, List<BotPoll> polls) {
+    public BotGuild(String guildId, String guildName, String locale, String greetingMessage, String greetingChannelId, boolean greetingEnabled, List<BotMember> members, List<BotRole> roles, List<BotPoll> polls) {
         this.guildId = guildId;
         this.guildName = guildName;
         this.locale = locale;
+        this.greetingMessage = greetingMessage;
+        this.greetingChannelId = greetingChannelId;
+        this.greetingEnabled = greetingEnabled;
         this.members = members;
         this.roles = roles;
         this.polls = polls;
     }
 
-    public BotGuild(String guildId, String guildName, String locale) {
+    public BotGuild(String guildId, String guildName, String locale, String greetingMessage, String greetingChannelId, boolean greetingEnabled) {
         this.guildId = guildId;
         this.guildName = guildName;
         this.locale = locale;
+        this.greetingMessage = greetingMessage;
+        this.greetingChannelId = greetingChannelId;
+        this.greetingEnabled = greetingEnabled;
         members =  new ArrayList<>();
         roles = new ArrayList<>();
         polls = new ArrayList<>();
@@ -165,5 +176,29 @@ public class BotGuild {
         if(poll != null){
             poll.hasParticipant(memberId);
         }
+    }
+
+    public String getGreetingChannelId() {
+        return greetingChannelId;
+    }
+
+    public void setGreetingChannelId(String greetingChannelId) {
+        this.greetingChannelId = greetingChannelId;
+    }
+
+    public String getGreetingMessage() {
+        return greetingMessage;
+    }
+
+    public void setGreetingMessage(String greetingMessage) {
+        this.greetingMessage = greetingMessage;
+    }
+
+    public boolean isGreetingEnabled() {
+        return greetingEnabled;
+    }
+
+    public void setGreetingEnabled(boolean greetingEnabled) {
+        this.greetingEnabled = greetingEnabled;
     }
 }

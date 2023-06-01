@@ -87,3 +87,7 @@ logtitle: "Log"
 medicationtitle: "Medikationadvices"
 medicationsymptomsarea: "In which area are the symptoms given?"
 medicationsymptoms: "What are the symptoms?"
+
+#-----------------Greeting--------------------
+greetingset: "The greeting has been edited."
+greetingchannelnotvalid: "The channel is not valid."

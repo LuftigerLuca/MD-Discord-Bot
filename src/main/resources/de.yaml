@@ -89,3 +89,6 @@ medicationtitle: "Medikationsempfehlung"
 medicationsymptomsarea: "In welchem Bereich sind die Symptome?"
 medicationsymptoms: "Welche Symptome sind vorhanden?"
 
+#-----------------Greeting--------------------
+greetingset: "Die Begrüßungseinstellungen wurden geändert."
+greetingchannelnotvalid: "Der Channel ist nicht gültig."

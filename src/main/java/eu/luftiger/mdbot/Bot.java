@@ -8,6 +8,7 @@ import eu.luftiger.mdbot.database.DatabaseQueryHandler;
 import eu.luftiger.mdbot.database.DatabaseSetup;
 import eu.luftiger.mdbot.listeners.BotJoinListener;
 import eu.luftiger.mdbot.listeners.BotLeaveListener;
+import eu.luftiger.mdbot.listeners.UserJoinListener;
 import eu.luftiger.mdbot.listeners.buttons.ButtonListener;
 import eu.luftiger.mdbot.listeners.menus.MenuListener;
 import eu.luftiger.mdbot.schedulers.UpdateScheduler;
@@ -92,7 +93,8 @@ public class Bot {
                         new BotLeaveListener(this),
                         new CommandHandler(this),
                         new ButtonListener(this),
-                        new MenuListener(this))
+                        new MenuListener(this),
+                        new UserJoinListener(this))
                 .build();
 
         try {

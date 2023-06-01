@@ -24,8 +24,9 @@ public class DatabaseQueryHandler {
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM guilds")){
             statement.execute();
             var resultSet = statement.getResultSet();
+
             while (resultSet.next()){
-                guilds.add(new BotGuild(resultSet.getString("id"), resultSet.getString("name"), resultSet.getString("locale")));
+                guilds.add(new BotGuild(resultSet.getString("id"), resultSet.getString("name"), resultSet.getString("locale"), resultSet.getString("greeting_message"), resultSet.getString("greeting_channel"), resultSet.getBoolean("is_greeting_enabled")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -33,13 +34,20 @@ public class DatabaseQueryHandler {
         return guilds;
     }
 
-    public void addGuild(String guildId, String guildName, String locale){
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO guilds (id, name, locale) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, locale = ?")){
+    public void addGuild(String guildId, String guildName, String locale, String greetingMessage, String greetingChannelId, boolean greetingEnabled){
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO guilds (id, name, locale, greeting_message, greeting_channel, is_greeting_enabled) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, locale = ?, greeting_message = ?, greeting_channel = ?, is_greeting_enabled = ?")){
             statement.setString(1, guildId);
             statement.setString(2, guildName);
             statement.setString(3, locale);
-            statement.setString(4, guildName);
-            statement.setString(5, locale);
+            statement.setString(4, greetingMessage);
+            statement.setString(5, greetingChannelId);
+            statement.setBoolean(6, greetingEnabled);
+            statement.setString(7, guildName);
+            statement.setString(8, locale);
+            statement.setString(9, greetingMessage);
+            statement.setString(10, greetingChannelId);
+            statement.setBoolean(11, greetingEnabled);
+
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

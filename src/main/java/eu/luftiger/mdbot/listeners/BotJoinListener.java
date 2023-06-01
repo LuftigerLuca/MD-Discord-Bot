@@ -18,6 +18,6 @@ public class BotJoinListener extends ListenerAdapter {
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
         Guild guild = event.getGuild();
-        guildsProvider.addGuild(new BotGuild(guild.getId(), guild.getName(), "en"));
+        guildsProvider.addGuild(new BotGuild(guild.getId(), guild.getName(), "en", "", event.getGuild().getId().toString(), false));
     }
 }

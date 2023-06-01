@@ -49,9 +49,12 @@ public class CommandHandler extends ListenerAdapter {
                 .addOption(OptionType.STRING, "question", "Question of the poll", true)
                 .addOption(OptionType.STRING, "options", "Options for the poll", true);
 
-        SlashCommandData medicationCommand = Commands.slash("medication", "Suggest a medication for a given symptom");
+        SlashCommandData setGreetingCommand = Commands.slash("setgreeting", "Set the greeting message for the bot")
+                .addOption(OptionType.STRING, "message", "Message to greet the user", true)
+                .addOption(OptionType.CHANNEL, "channel", "Channel to send the message", true)
+                .addOption(OptionType.BOOLEAN, "enabled", "Enable or disable the greeting message", true);
 
-        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand, pollCommand).queue();
+        jda.updateCommands().addCommands(configureCommand, signOffCommand, signOffInfoCommand, infoCommand, trainingData, sickNoteCommand, pollCommand, setGreetingCommand).queue();
     }
 
     @Override
@@ -64,6 +67,7 @@ public class CommandHandler extends ListenerAdapter {
             case "training" -> new TrainingCommand().execute(bot, event);
             case "sicknote" -> new SickNoteCommand().execute(bot, event);
             case "poll" -> new PollCommand().execute(bot, event);
+            case "setgreeting" -> new SetGreetingCommand().execute(bot, event);
             //case "medication" -> new MedicationCommand().execute(bot, event);
         }
     }

@@ -33,7 +33,7 @@ public class UpdateScheduler {
             for (Guild guild : guilds) {
                 if(botGuilds.stream().noneMatch(botGuild -> botGuild.getGuildId().equals(guild.getId()))){
                     try {
-                        guildsProvider.addGuild(new BotGuild(guild.getId(), guild.getName(), "en"));
+                        guildsProvider.addGuild(new BotGuild(guild.getId(), guild.getName(), "en", "", guild.getDefaultChannel().getId(), false));
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -42,7 +42,8 @@ public class UpdateScheduler {
 
                 if(botGuilds.stream().anyMatch(botGuild -> botGuild.getGuildId().equals(guild.getId()) && !botGuild.getGuildName().equals(guild.getName()))){
                     try {
-                        guildsProvider.updateGuild(guild.getId(), guild.getName(), guildsProvider.getGuild(guild.getId()).getLocale());
+                        BotGuild botGuild = guildsProvider.getGuild(guild.getId());
+                        guildsProvider.updateGuild(guild.getId(), guild.getName(), botGuild.getLocale(), botGuild.getGreetingMessage(), botGuild.getGreetingChannelId(), botGuild.isGreetingEnabled());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

@@ -37,7 +37,7 @@ public class GuildsProvider {
     }
 
     public void addGuild(BotGuild guild) {
-        databaseQueryHandler.addGuild(guild.getGuildId(), guild.getGuildName(), guild.getLocale());
+        databaseQueryHandler.addGuild(guild.getGuildId(), guild.getGuildName(), guild.getLocale(), guild.getGreetingMessage(), guild.getGreetingChannelId(), guild.isGreetingEnabled());
         guilds.add(guild);
     }
 
@@ -55,16 +55,16 @@ public class GuildsProvider {
         guilds.removeIf(guild -> guild.getGuildId().equals(guildId));
     }
 
-    public void updateGuild(BotGuild guild, String newName, String locale) {
-        databaseQueryHandler.addGuild(guild.getGuildId(), newName, locale);
+    public void updateGuild(BotGuild guild, String newName, String locale, String guildGreetingMessage, String guildGreetingChannelId, boolean guildGreetingEnabled) {
+        databaseQueryHandler.addGuild(guild.getGuildId(), newName, locale, guildGreetingMessage, guildGreetingChannelId, guildGreetingEnabled);
         guilds.stream().filter(g -> g.getGuildId().equals(guild.getGuildId())).findFirst().ifPresent(g -> {
             g.setGuildName(newName);
             g.setLocale(locale);
         });
     }
 
-    public void updateGuild(String guildId, String newName, String locale) {
-        databaseQueryHandler.addGuild(guildId, newName, locale);
+    public void updateGuild(String guildId, String newName, String locale, String guildGreetingMessage, String guildGreetingChannelId, boolean guildGreetingEnabled) {
+        databaseQueryHandler.addGuild(guildId, newName, locale, guildGreetingMessage, guildGreetingChannelId, guildGreetingEnabled);
         guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> {
             g.setGuildName(newName);
             g.setLocale(locale);

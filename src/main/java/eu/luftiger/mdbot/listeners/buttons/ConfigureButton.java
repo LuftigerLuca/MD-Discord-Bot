@@ -2,6 +2,7 @@ package eu.luftiger.mdbot.listeners.buttons;
 
 import eu.luftiger.mdbot.Bot;
 import eu.luftiger.mdbot.configuration.LanguageConfiguration;
+import eu.luftiger.mdbot.model.BotGuild;
 import eu.luftiger.mdbot.model.BotMember;
 import eu.luftiger.mdbot.model.BotRole;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -49,7 +50,9 @@ public class ConfigureButton implements BotButton{
         }
 
         if(event.getComponentId().equals("configure:language:en")){
-            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "en");
+            BotGuild botGuild = bot.getGuildsProvider().getGuild(event.getGuild().getId());
+
+            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "en", botGuild.getGreetingMessage(), botGuild.getGreetingChannelId(), botGuild.isGreetingEnabled());
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(languageConfiguration.configuretitle());
             embedBuilder.setColor(Color.cyan);
@@ -65,7 +68,9 @@ public class ConfigureButton implements BotButton{
         }
 
         if (event.getComponentId().equals("configure:language:de")) {
-            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "de");
+            BotGuild botGuild = bot.getGuildsProvider().getGuild(event.getGuild().getId());
+
+            bot.getGuildsProvider().updateGuild(event.getGuild().getId(), event.getGuild().getName(), "de", botGuild.getGreetingMessage(), botGuild.getGreetingChannelId(), botGuild.isGreetingEnabled());
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(languageConfiguration.configuretitle());
             embedBuilder.setColor(Color.cyan);

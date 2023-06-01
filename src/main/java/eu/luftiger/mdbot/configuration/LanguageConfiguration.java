@@ -65,5 +65,7 @@ public record LanguageConfiguration(String permissiondenied,
                                     String logtitle,
                                     String medicationtitle,
                                     String medicationsymptomsarea,
-                                    String medicationsymptoms) {
+                                    String medicationsymptoms,
+                                    String greetingset,
+                                    String greetingchannelnotvalid) {
 }
