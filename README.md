@@ -2,15 +2,18 @@
 <a href="https://wakatime.com/badge/user/7df019f0-7a0e-4b85-89f3-0ac38ab67246/project/d497edd9-6ba3-4217-ae2d-0ad3bf4c604e"><img src="https://wakatime.com/badge/user/7df019f0-7a0e-4b85-89f3-0ac38ab67246/project/d497edd9-6ba3-4217-ae2d-0ad3bf4c604e.svg" alt="wakatime"></a>
 
 ## Commands
-| Command     | Options                                                          | Permission     | Desciption                            |
-|-------------|------------------------------------------------------------------|----------------|---------------------------------------|
-| info        |                                                                  |                | Shows the bot info                    |
-| poll        | question, options                                                | createpoll     | Creates a poll with the given options |
-| signoff     | reason, from, (to)                                               |                | Creates a signoff                     |
-| signoffinfo | user                                                             | singoffinfo    | Shows the signoff info of the user    |
- | training    | name, date, description, location, requirements, maxparticipants | createtraining | Creates a training                    |
-| sicknote    | person, reason, from, (to)                                       | createsicknote | Creates a sicknote                    |
-| configurate |                                                                  | configure   | Configurate the bot                   |
+| Command     | Options                                                          | Permission     | Desciption                                   |
+|-------------|------------------------------------------------------------------|----------------|----------------------------------------------|
+| info        |                                                                  |                | Shows the bot info                           |
+| poll        | question, options                                                | createpoll     | Creates a poll with the given options        |
+| signoff     | reason, from, (to)                                               |                | Creates a signoff                            |
+| signoffinfo | user                                                             | singoffinfo    | Shows the signoff info of the user           |
+ | training    | name, date, description, location, requirements, maxparticipants | createtraining | Creates a training                           |
+| sicknote    | person, reason, from, (to)                                       | createsicknote | Creates a sicknote                           |
+| configurate |                                                                  | configure      | Configurate the bot                          |
+| setgreeting | message, channel, enabled                                        | setgreeting    | Sets the greeting                            |
+| uprank      | user, role                                                       | uprank         | Sends a message about the uprank of the user |
+
 ### Poll
 The poll comand creates a poll with the given options. The options are seperated by a comma. The bot will add buttons to the message to vote for the options. A user can only vote once and for one option. The bot will update the message with the current votes.
 
@@ -100,3 +103,26 @@ The sicknote command creates a sicknote for a defined person, as example an poli
 The configurate command is used to configurate the bot. The bot will send a message with added buttons, to configurate the bot.
 
 ![img.png](images/img_5.png)
+
+### Setgreeting
+The setgreeting command is used to set the greetingmessage of the bot.
+
+<b>Options</b>
+
+| Option  | Description                                                                                                         | Required |
+|---------|---------------------------------------------------------------------------------------------------------------------|----------|
+| message | The message the bot will send when a user joins the server. {user} is used to get replaced with the real users name | Yes      |
+| channel | The channel the bot will send the message in                                                                        | Yes      |
+| enabled | If the greeting is enabled or not, the bot will send the message if enabled                                         | Yes      |
+
+### Uprank
+The uprank command sends a message about the uprank of the user.
+
+<b>Options</b>
+
+| Option | Description                                         | Required |
+|--------|-----------------------------------------------------|----------|
+| user   | The user who got upranked as example: @user         | Yes      |
+| role   | The role the user got upranked to as example: Nurse | Yes      |
+
+![img_6.png](images/img_6.png)
