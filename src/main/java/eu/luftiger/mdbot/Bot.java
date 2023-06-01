@@ -30,7 +30,6 @@ public class Bot {
 
     private Logger logger;
     private ConfigurationHandler configurationHandler;
-    private MedicationHandler medicationHandler;
     private DatabaseQueryHandler databaseQueryHandler;
     private GuildsProvider guildsProvider;
     private Properties properties;
@@ -56,14 +55,6 @@ public class Bot {
         configurationHandler = new ConfigurationHandler(this);
         try {
             configurationHandler.loadConfiguration();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        logger.info("Loading medications...");
-        medicationHandler = new MedicationHandler();
-        try {
-            medicationHandler.loadMedications();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -135,10 +126,6 @@ public class Bot {
 
     public ConfigurationHandler getConfigurationHandler() {
         return configurationHandler;
-    }
-
-    public MedicationHandler getMedicationHandler() {
-        return medicationHandler;
     }
 
     public DatabaseQueryHandler getDatabaseQueryHandler() {
