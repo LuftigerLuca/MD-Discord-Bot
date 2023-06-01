@@ -2,7 +2,6 @@ package eu.luftiger.mdbot;
 
 import eu.luftiger.mdbot.commands.CommandHandler;
 import eu.luftiger.mdbot.configuration.ConfigurationHandler;
-import eu.luftiger.mdbot.configuration.MedicationHandler;
 import eu.luftiger.mdbot.database.DataSourceProvider;
 import eu.luftiger.mdbot.database.DatabaseQueryHandler;
 import eu.luftiger.mdbot.database.DatabaseSetup;

@@ -68,7 +68,6 @@ public class CommandHandler extends ListenerAdapter {
             case "sicknote" -> new SickNoteCommand().execute(bot, event);
             case "poll" -> new PollCommand().execute(bot, event);
             case "setgreeting" -> new SetGreetingCommand().execute(bot, event);
-            //case "medication" -> new MedicationCommand().execute(bot, event);
         }
     }
 }
