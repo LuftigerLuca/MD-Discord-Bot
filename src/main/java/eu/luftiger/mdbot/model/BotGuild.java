@@ -1,8 +1,13 @@
 package eu.luftiger.mdbot.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 public class BotGuild {
 
     private final String guildId;
@@ -41,34 +46,6 @@ public class BotGuild {
         polls = new ArrayList<>();
     }
 
-    public String getGuildId() {
-        return guildId;
-    }
-
-    public String getGuildName() {
-        return guildName;
-    }
-
-    public void setGuildName(String guildName) {
-        this.guildName = guildName;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
-
-    public List<BotMember> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<BotMember> members) {
-        this.members = members;
-    }
-
     public void addMember(BotMember member){
         members.add(member);
     }
@@ -93,14 +70,6 @@ public class BotGuild {
         return members.stream().filter(member -> member.getMemberId().equals(memberId)).findFirst().orElse(null);
     }
 
-    public List<BotRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<BotRole> roles) {
-        this.roles = roles;
-    }
-
     public void addRole(BotRole role){
         roles.add(role);
     }
@@ -123,14 +92,6 @@ public class BotGuild {
 
     public void hasRole(String roleId){
         roles.stream().anyMatch(role -> role.getRoleId().equals(roleId));
-    }
-
-    public List<BotPoll> getPolls() {
-        return polls;
-    }
-
-    public void setPolls(List<BotPoll> polls) {
-        this.polls = polls;
     }
 
     public void addPoll(BotPoll poll){
@@ -176,29 +137,5 @@ public class BotGuild {
         if(poll != null){
             poll.hasParticipant(memberId);
         }
-    }
-
-    public String getGreetingChannelId() {
-        return greetingChannelId;
-    }
-
-    public void setGreetingChannelId(String greetingChannelId) {
-        this.greetingChannelId = greetingChannelId;
-    }
-
-    public String getGreetingMessage() {
-        return greetingMessage;
-    }
-
-    public void setGreetingMessage(String greetingMessage) {
-        this.greetingMessage = greetingMessage;
-    }
-
-    public boolean isGreetingEnabled() {
-        return greetingEnabled;
-    }
-
-    public void setGreetingEnabled(boolean greetingEnabled) {
-        this.greetingEnabled = greetingEnabled;
     }
 }

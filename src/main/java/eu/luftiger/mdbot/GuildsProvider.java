@@ -2,14 +2,16 @@ package eu.luftiger.mdbot;
 
 import eu.luftiger.mdbot.database.DatabaseQueryHandler;
 import eu.luftiger.mdbot.model.*;
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@Getter
 public class GuildsProvider {
 
     private final Bot bot;
@@ -181,9 +183,5 @@ public class GuildsProvider {
     public void removePoll(String guildId, String pollId) {
         databaseQueryHandler.removePoll(pollId);
         guilds.stream().filter(g -> g.getGuildId().equals(guildId)).findFirst().ifPresent(g -> g.removePoll(pollId));
-    }
-
-    public List<BotGuild> getGuilds() {
-        return guilds;
     }
 }

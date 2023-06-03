@@ -1,8 +1,13 @@
 package eu.luftiger.mdbot.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class BotRole {
 
     private final String roleId;
@@ -16,18 +21,6 @@ public class BotRole {
     public BotRole(String roleId){
         this.roleId = roleId;
         permissions = new ArrayList<>();
-    }
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public List<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<String> permissions) {
-        this.permissions = permissions;
     }
 
     public void addPermission(String permission){

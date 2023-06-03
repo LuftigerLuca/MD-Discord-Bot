@@ -3,6 +3,7 @@ package eu.luftiger.mdbot.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import eu.luftiger.mdbot.Bot;
+import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.nio.file.Paths;
 /**
  * This class is responsible for loading the configuration from the file system.
  */
+@Getter
 public class ConfigurationHandler {
 
     private final ObjectMapper objectMapper;
@@ -49,22 +51,5 @@ public class ConfigurationHandler {
             Files.copy(inputStream, Paths.get("en.yaml"));
         }
         englishLanguageConfiguration = objectMapper.readValue(englishLanguageFile, LanguageConfiguration.class);
-    }
-
-
-    /**
-     * Returns the loaded configuration
-     * @return the loaded configuration
-     */
-    public Configuration getConfiguration() {
-        return configuration;
-    }
-
-    public LanguageConfiguration getGermanLanguageConfiguration() {
-        return germanLanguageConfiguration;
-    }
-
-    public LanguageConfiguration getEnglishLanguageConfiguration() {
-        return englishLanguageConfiguration;
     }
 }

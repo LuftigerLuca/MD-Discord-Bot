@@ -1,11 +1,16 @@
 package eu.luftiger.mdbot.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class BotMember {
 
     private final String memberId;
@@ -24,18 +29,6 @@ public class BotMember {
         signOffs = new ArrayList<>();
     }
 
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public List<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<String> permissions) {
-        this.permissions = permissions;
-    }
-
     public void addPermission(String permission){
         permissions.add(permission);
     }
@@ -46,14 +39,6 @@ public class BotMember {
 
     public boolean hasPermission(String permission){
         return permissions.contains(permission);
-    }
-
-    public List<BotSignOff> getSignOffs() {
-        return signOffs;
-    }
-
-    public void setSignOffs(List<BotSignOff> signOffs) {
-        this.signOffs = signOffs;
     }
 
     public void addSignOff(BotSignOff signOff){

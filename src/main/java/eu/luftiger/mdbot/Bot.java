@@ -11,12 +11,15 @@ import eu.luftiger.mdbot.listeners.UserJoinListener;
 import eu.luftiger.mdbot.listeners.buttons.ButtonListener;
 import eu.luftiger.mdbot.listeners.menus.MenuListener;
 import eu.luftiger.mdbot.schedulers.UpdateScheduler;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.io.BufferedReader;
@@ -26,7 +29,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-public class Bot {
+@Component
+@Getter
+public class Bot implements CommandLineRunner {
 
     private Logger logger;
     private ConfigurationHandler configurationHandler;
@@ -35,11 +40,8 @@ public class Bot {
     private Properties properties;
     private JDA jda;
 
-    public static void main(String[] args) {
-        new Bot().start();
-    }
-
-    public void start() {
+    @Override
+    public void run(String... args) throws Exception {
         logger = Logger.getLogger("Bot");
         logger.info("Starting bot...");
 
@@ -118,29 +120,5 @@ public class Bot {
                 running = false;
             }
         }
-    }
-
-    public Logger getLogger() {
-        return logger;
-    }
-
-    public ConfigurationHandler getConfigurationHandler() {
-        return configurationHandler;
-    }
-
-    public DatabaseQueryHandler getDatabaseQueryHandler() {
-        return databaseQueryHandler;
-    }
-
-    public GuildsProvider getGuildsProvider() {
-        return guildsProvider;
-    }
-
-    public Properties getProperties() {
-        return properties;
-    }
-
-    public JDA getJda() {
-        return jda;
     }
 }

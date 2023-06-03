@@ -1,9 +1,12 @@
 package eu.luftiger.mdbot.model;
 
+import lombok.Getter;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@Getter
 public class BotSignOff {
 
     private final String id;
@@ -22,26 +25,6 @@ public class BotSignOff {
         this.from = from;
         this.to = to;
         this.accepted = accepted;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getGuildId() {
-        return guildId;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public String getFrom() {
-        return from;
     }
 
     public Date getFromDate(){
