@@ -54,7 +54,7 @@ public class BotMember {
         for (BotSignOff signOff : signOffs2) {
             Date from = signOff.getFromDate();
             Date to = signOff.getToDate();
-            if(from.equals(to) || from.before(new Date()) && to.after(new Date()) || from.equals(new Date()) || to.equals(new Date())){
+            if(from.equals(new Date()) || from.before(new Date()) && to.after(new Date()) || to.equals(new Date())){
                 return true;
             }
         }
