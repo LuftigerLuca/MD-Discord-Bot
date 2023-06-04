@@ -40,6 +40,8 @@ public class Bot {
     }
 
     public void start() {
+        String test;
+
         logger = Logger.getLogger("Bot");
         logger.info("Starting bot...");
 
